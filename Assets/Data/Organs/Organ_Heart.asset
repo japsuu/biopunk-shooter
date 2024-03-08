@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecefae7af274fe0b0b93ea58ba6b2f5, type: 3}
+  m_Name: Organ_Heart
+  m_EditorClassIdentifier: Assembly-CSharp:Items:OrganData
+  _worldItemPrefab: {fileID: 8776832055229204711, guid: 654715c4379e481489e3e583ed84620c, type: 3}
+  _uiSprite: {fileID: 21300000, guid: a6ef1921b8de6974dbd9689b62a88576, type: 3}
+  _maxHealth: 0.2
+  _healthRegenPerSec: 1
+  _movementSpeed: 0
+  _fortitude: 0

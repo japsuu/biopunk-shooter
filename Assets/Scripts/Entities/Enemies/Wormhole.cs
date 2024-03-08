@@ -1,0 +1,66 @@
+using DG.Tweening;
+using UnityEngine;
+
+namespace Entities.Enemies
+{
+    /// <summary>
+    /// Spawns randomly on the map, and spawns a single enemy after a certain amount of time.
+    /// </summary>
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class Wormhole : MonoBehaviour
+    {
+        private SpriteRenderer _spriteRenderer;
+        
+        private Enemy _enemyPrefab;
+        private EnemyData _enemyData;
+        private float _enemySpawnTimer;
+        private bool _destroying;
+
+
+        private void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+
+        public void Initialize(Enemy enemyPrefab, EnemyData enemyData, float enemySpawnDelay)
+        {
+            _enemyPrefab = enemyPrefab;
+            _enemyData = enemyData;
+            _enemySpawnTimer = enemySpawnDelay;
+        }
+        
+        
+        private void Update()
+        {
+            if (_destroying)
+                return;
+            
+            if (_enemySpawnTimer <= 0)
+            {
+                SpawnEnemy();
+                DestroySelf();
+            }
+            else
+            {
+                _enemySpawnTimer -= Time.deltaTime;
+            }
+        }
+        
+        
+        private void SpawnEnemy()
+        {
+            Enemy enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            enemy.Initialize(_enemyData);
+            enemy.gameObject.SetActive(true);
+            enemy.gameObject.name = "Enemy";
+        }
+        
+        
+        private void DestroySelf()
+        {
+            _destroying = true;
+            _spriteRenderer.DOFade(0, 1.0f).OnComplete(() => Destroy(gameObject, 1f));
+        }
+    }
+}

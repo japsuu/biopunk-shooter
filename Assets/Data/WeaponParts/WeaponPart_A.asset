@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67ba471befa4ee39ac4fa5d0522384b, type: 3}
+  m_Name: WeaponPart_A
+  m_EditorClassIdentifier: 
+  _worldItemPrefab: {fileID: 8776832055229204711, guid: 6864a35f45cc9244280d88b04f511b5f, type: 3}
+  _uiSprite: {fileID: 21300000, guid: 749b5c34386167045a0d7f9222e273e5, type: 3}
+  _generatedHeatPerShot: 0
+  _cooldownTimeSeconds: 0
+  _fireRateRpm: 0
+  _projectileSpeed: 0
+  _projectileSize: 0
+  _splitCount: 1
+  _explodes: 0
