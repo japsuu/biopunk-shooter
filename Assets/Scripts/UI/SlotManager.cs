@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities.Player;
 using Items;
 using Singletons;
 using UnityEngine;
+using Weapons;
 
 namespace UI
 {
@@ -11,57 +13,120 @@ namespace UI
     /// </summary>
     public class SlotManager : SingletonBehaviour<SlotManager>
     {
-        /// <summary>
-        /// Called when the equipped items of a certain slot type have changed.
-        /// </summary>
-        public static event Action<(SlotType slot, List<ItemData> newItems)> OnEquippedItemsChanged;
+        [SerializeField]
+        private List<Slot> _bodySlots;
         
         [SerializeField]
-        private Canvas _canvas;
+        private Slot _leftWeaponSlot;
         
         [SerializeField]
-        private List<Slot> _leftHandSlots;      // Affects the behaviour of weapon 1.
+        private Slot _rightWeaponSlot;
         
         [SerializeField]
-        private List<Slot> _rightHandSlots;     // Affects the behaviour of weapon 2.
-        
-        [SerializeField]
-        private List<Slot> _bodySlots;          // Affects the player's stats.
-        
-        private readonly Dictionary<SlotType, List<Slot>> _slotsMap = new();
+        private Slot _eventSlotPrefab;
 
-        public Canvas Canvas => _canvas;
+        [Tooltip("The transform under which the left weapon\'s effect slots will be created.")]
+        [SerializeField]
+        private RectTransform _leftWeaponEventSlotsParent;
+
+        [Tooltip("The transform under which the right weapon\'s effect slots will be created.")]
+        [SerializeField]
+        private RectTransform _rightWeaponEventSlotsParent;
+        
+        private List<Slot> _leftEventSlots = new();
+        private List<Slot> _rightEventSlots = new();
         
         
         private void Awake()
         {
-            PrepareSlots(_leftHandSlots, SlotType.LeftHand);
-            PrepareSlots(_rightHandSlots, SlotType.RightHand);
-            PrepareSlots(_bodySlots, SlotType.Body);
-            Slot.OnSlotContentsChanged += OnSlotContentsChanged;
+            foreach (Slot slot in _bodySlots)
+            {
+                slot.Initialize(SlotType.Body, OnOrganSlotContentsChanged);
+            }
+            _leftWeaponSlot.Initialize(SlotType.Weapon, () => PlayerController.Instance.OnWeaponSlotChanged((WeaponData)_leftWeaponSlot.AssignedItem, false));
+            _rightWeaponSlot.Initialize(SlotType.Weapon, () => PlayerController.Instance.OnWeaponSlotChanged((WeaponData)_rightWeaponSlot.AssignedItem, true));
+            
+            PlayerWeaponManager.OnWeaponChanged += OnWeaponChanged;
         }
 
 
-        private void PrepareSlots(List<Slot> slots, SlotType type)
+        private void OnWeaponChanged((RuntimeWeaponData newWeapon, bool isRightWeapon) obj)
         {
-            foreach (Slot slot in slots)
-                slot.Initialize(type);
-            _slotsMap.Add(type, slots);
+            (RuntimeWeaponData newWeapon, bool isRightWeapon) = obj;
+            
+            if (isRightWeapon)
+            {
+                _rightEventSlots = GenerateEventSlots(newWeapon, true);
+                _rightWeaponSlot.AssignItem(newWeapon.Weapon, false);
+            }
+            else
+            {
+                _leftEventSlots = GenerateEventSlots(newWeapon, false);
+                _leftWeaponSlot.AssignItem(newWeapon.Weapon, false);
+            }
         }
-        
-        
-        /// <summary>
-        /// Called by a slot when its contents have changed.
-        /// </summary>
-        private void OnSlotContentsChanged(Slot changedSlot)
+
+
+        private List<Slot> GenerateEventSlots(RuntimeWeaponData newWeapon, bool isRightWeapon)
         {
-            List<ItemData> newItems = new();
-            foreach (Slot slot in _slotsMap[changedSlot.SlotType])
+            List<Slot> eventSlots = new();
+            
+            // Regenerate the event slots for the weapon.
+            RectTransform parent = isRightWeapon ? _rightWeaponEventSlotsParent : _leftWeaponEventSlotsParent;
+            foreach (Transform child in parent)
+            {
+                Destroy(child.gameObject);
+            }
+
+            foreach (ProjectileEventData eventData in newWeapon.Events)
+            {
+                Slot eventSlot = Instantiate(_eventSlotPrefab, parent);
+                eventSlot.Initialize(SlotType.ProjectileEvent, () => OnProjectileEventSlotChanged(isRightWeapon));
+                eventSlots.Add(eventSlot);
+
+                if (eventData != null)
+                    eventSlot.AssignItem(eventData, false);
+            }
+            
+            return eventSlots;
+        }
+
+
+        private void OnProjectileEventSlotChanged(bool isRightWeapon)
+        {
+            if (isRightWeapon)
+            {
+                List<ProjectileEventData> rightEvents = new();
+                
+                foreach (Slot slot in _rightEventSlots)
+                {
+                    if (slot.AssignedItem != null)
+                        rightEvents.Add((ProjectileEventData)slot.AssignedItem);
+                }
+                PlayerController.Instance.WeaponManager.SetRightWeaponEvents(rightEvents.ToArray());
+            }
+            else
+            {
+                List<ProjectileEventData> leftEvents = new();
+                foreach (Slot slot in _leftEventSlots)
+                {
+                    if (slot.AssignedItem != null)
+                        leftEvents.Add((ProjectileEventData)slot.AssignedItem);
+                }
+                PlayerController.Instance.WeaponManager.SetLeftWeaponEvents(leftEvents.ToArray());
+            }
+        }
+
+
+        private void OnOrganSlotContentsChanged()
+        {
+            List<OrganData> currentData = new();
+            foreach (Slot slot in _bodySlots)
             {
                 if (slot.AssignedItem != null)
-                    newItems.Add(slot.AssignedItem);
+                    currentData.Add((OrganData)slot.AssignedItem);
             }
-            OnEquippedItemsChanged?.Invoke((changedSlot.SlotType, newItems));
+            PlayerController.Instance.OnOrganSlotsChanged(currentData);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Items;
+﻿using System;
 using UnityEngine;
 using Weapons;
 
@@ -12,8 +11,12 @@ namespace Entities.Player
     /// </summary>
     public class PlayerWeaponManager : MonoBehaviour, IDamageCauser
     {
+        public static event Action<(RuntimeWeaponData newWeaponData, bool isRightWeapon)> OnWeaponChanged;
+        
         [SerializeField]
-        private Projectile _projectilePrefab;
+        private WeaponData _defaultLeftData;
+        [SerializeField]
+        private WeaponData _defaultRightData;
         
         [SerializeField]
         private WeaponObject _leftWeapon;
@@ -25,22 +28,40 @@ namespace Entities.Player
         private bool _allowFiring = true;
 
 
-        public void SetLeftHandWeaponParts(List<ItemData> objNewItems)
-        {
-            UpdateWeaponParts(objNewItems, _leftWeapon);
-        }
-
-
-        public void SetRightHandWeaponParts(List<ItemData> objNewItems)
-        {
-            UpdateWeaponParts(objNewItems, _rightWeapon);
-        }
-
-
         private void Start()
         {
-            _leftWeapon.Initialize(_projectilePrefab, this);
-            _rightWeapon.Initialize(_projectilePrefab, this);
+            ChangeLeftWeapon(_defaultLeftData);
+            ChangeRightWeapon(_defaultRightData);
+        }
+        
+        
+        public void ChangeLeftWeapon(WeaponData weaponData)
+        {
+            RuntimeWeaponData d = new(weaponData);
+
+            _leftWeapon.Initialize(d, this);
+            OnWeaponChanged?.Invoke((d, false));
+        }
+
+
+        public void ChangeRightWeapon(WeaponData weaponData)
+        {
+            RuntimeWeaponData d = new(weaponData);
+            
+            _rightWeapon.Initialize(d, this);
+            OnWeaponChanged?.Invoke((d, true));
+        }
+
+
+        public void SetLeftWeaponEvents(ProjectileEventData[] e)
+        {
+            _leftWeapon.SetEvents(e);
+        }
+
+
+        public void SetRightWeaponEvents(ProjectileEventData[] e)
+        {
+            _rightWeapon.SetEvents(e);
         }
 
 
@@ -61,21 +82,19 @@ namespace Entities.Player
         }
 
 
-        private static void UpdateWeaponParts(IReadOnlyList<ItemData> objNewItems, WeaponObject weapon)
-        {
-            WeaponPartData[] parts = new WeaponPartData[objNewItems.Count];
-            for (int i = 0; i < objNewItems.Count; i++)
-            {
-                parts[i] = (WeaponPartData)objNewItems[i];
-            }
-            weapon.SetParts(parts);
-        }
-
-
         public void NotifyOfKill(IDamageable killed)
         {
             float rewardXp = killed.KillRewardXp;
             PlayerStats.Instance.AddExperience(rewardXp);
+        }
+
+
+        public void SetWeapon(WeaponData newWeapon, bool isRight)
+        {
+            if (isRight)
+                ChangeRightWeapon(newWeapon);
+            else
+                ChangeLeftWeapon(newWeapon);
         }
     }
 }

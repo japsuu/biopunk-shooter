@@ -248,12 +248,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpawnPoint: {fileID: 2017475991041256384}
-  _baseFireRateRpm: 120
-  _baseHeatGeneratedPerShot: 30
-  _baseHeatRemovedPerSecond: 20
-  _baseOverheatCooldownSeconds: 2
-  _currentHeat: 0
-  _overheatCooldownLeft: 0
   _fireDelayLeft: 0
 --- !u!1 &7300343120824767676
 GameObject:
@@ -366,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f055d8e26da427e99b92e58744778fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultWeapon: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
   _renderer: {fileID: 8391781709884652608}
   _weapon: {fileID: 4160994085235175329}
   _projectilePrefab: {fileID: 1930847822085002051, guid: b4ee7ce960ce51a439868e6725e5b2c3, type: 3}
@@ -397,6 +392,7 @@ MonoBehaviour:
   _rotationTransform: {fileID: 3981318047039945454}
   _rotationMethod: 0
   _rotationSpeed: 360
+  _assumedProjectileSpeed: 18
 --- !u!1 &8109001013360258419
 GameObject:
   m_ObjectHideFlags: 0

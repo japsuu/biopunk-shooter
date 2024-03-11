@@ -15,16 +15,19 @@ namespace UI
     /// </summary>
     public class Slot : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
-        public static event Action<Slot> OnSlotContentsChanged;
-        
         [SerializeField]
         private Image _assignedItemImage;
         
         [SerializeField]
         private Image _highlightItemCompatibilityImage;
+        
+        [SerializeField]
+        private bool _canRemoveItem = true;
 
         public SlotType SlotType { get; private set; }
         public ItemData AssignedItem { get; private set; }
+
+        private Action _onContentsChangeCallback;
         
         
         public bool CanAcceptItem(ItemData item)
@@ -32,7 +35,8 @@ namespace UI
             return item.Type switch
             {
                 ItemType.Organ => SlotType == SlotType.Body,
-                ItemType.ProjectileEvent => SlotType == SlotType.LeftHand || SlotType == SlotType.RightHand,
+                ItemType.ProjectileEvent => SlotType == SlotType.ProjectileEvent,
+                ItemType.Weapon => SlotType == SlotType.Weapon,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -44,9 +48,10 @@ namespace UI
         /// <summary>
         /// Called by the SlotManager on startup.
         /// </summary>
-        public void Initialize(SlotType type)
+        public void Initialize(SlotType type, Action onContentsChangeCallback)
         {
             SlotType = type;
+            _onContentsChangeCallback = onContentsChangeCallback;
             DraggableItem.OnDraggedItemChanged += OnDraggedItemChanged;
         }
 
@@ -63,18 +68,19 @@ namespace UI
         }
 
 
-        public void AssignItem(ItemData item)
+        public void AssignItem(ItemData item, bool callCallback = true)
         {
-            OnAssignItem(item);
+            OnAssignItem(item, callCallback);
         }
 
 
-        private void OnAssignItem(ItemData item)
+        private void OnAssignItem(ItemData item, bool callCallback)
         {
             AssignedItem = item;
             _assignedItemImage.sprite = item.UiSprite;
             _assignedItemImage.enabled = true;
-            OnSlotContentsChanged?.Invoke(this);
+            if (callCallback)
+                _onContentsChangeCallback?.Invoke();
         }
         
         
@@ -83,7 +89,7 @@ namespace UI
             AssignedItem = null;
             _assignedItemImage.sprite = null;
             _assignedItemImage.enabled = false;
-            OnSlotContentsChanged?.Invoke(this);
+            _onContentsChangeCallback?.Invoke();
         }
 
 
@@ -95,6 +101,8 @@ namespace UI
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (!_canRemoveItem)
+                return;
             if (AssignedItem == null)
                 return;
             DraggableItem.Instance.Initialize(AssignedItem, this);

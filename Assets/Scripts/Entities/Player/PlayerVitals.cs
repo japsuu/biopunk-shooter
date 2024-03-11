@@ -72,22 +72,15 @@ namespace Entities.Player
         }
 
 
-        public void SetBodyParts(List<ItemData> newBodyParts)
+        public void SetOrgans(List<OrganData> newBodyParts)
         {
             _maxHealthModifiers.Clear();
             _healthRegenModifiers.Clear();
             _movementSpeedModifiers.Clear();
             _fortitudeFactorModifiers.Clear();
             
-            foreach (ItemData item in newBodyParts)
+            foreach (OrganData organ in newBodyParts)
             {
-                OrganData organ = item as OrganData;
-                if (organ == null)
-                {
-                    Debug.LogWarning($"Item {item.name} is not an organ.");
-                    continue;
-                }
-                
                 _maxHealthModifiers.Add(organ.MaxHealth);
                 _healthRegenModifiers.Add(organ.HealthRegenPerSec);
                 _movementSpeedModifiers.Add(organ.MovementSpeed);

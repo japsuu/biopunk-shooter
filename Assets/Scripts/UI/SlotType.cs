@@ -2,8 +2,8 @@
 {
     public enum SlotType
     {
-        LeftHand,
-        RightHand,
-        Body
+        Body,
+        Weapon,
+        ProjectileEvent
     }
 }

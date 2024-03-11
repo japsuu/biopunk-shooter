@@ -1,5 +1,4 @@
-﻿using System;
-using Camera;
+﻿using Camera;
 using Entities.Player;
 using Items;
 using UnityEngine;
@@ -14,13 +13,16 @@ namespace Entities.Enemies
     public class Enemy : MonoBehaviour, IDamageable, IDamageCauser
     {
         [SerializeField]
+        private WeaponData _defaultWeapon;  //TODO: Randomize weapon.
+        
+        [SerializeField]
         private SpriteRenderer _renderer;
         
         [SerializeField]
         private WeaponObject _weapon;
         
         [SerializeField]
-        private Projectile _projectilePrefab;
+        private Projectile _projectilePrefab; 
 
         private EnemyMovement _movement;
         private EnemyRotation _rotation;
@@ -42,7 +44,7 @@ namespace Entities.Enemies
         {
             _data = data;
             _health = _data.Health;
-            _weapon.Initialize(_projectilePrefab, this);
+            _weapon.Initialize(new RuntimeWeaponData(_defaultWeapon), this);
             _rotation.Initialize(this);
             //TODO: Set weapon parts.
         }
@@ -81,8 +83,7 @@ namespace Entities.Enemies
         private void SpawnLoot()
         {
             ItemData item = _data.DropTable.CreateRandomSelector().SelectRandomItem(); 
-            WorldItem i = Instantiate(item.WorldItemPrefab,  (Vector2)transform.position + Random.insideUnitCircle * 2, Quaternion.identity);
-            i.Initialize(item);
+            WorldItemSpawner.SpawnWorldItem(item, (Vector2)transform.position + Random.insideUnitCircle * 2);
         }
         
         

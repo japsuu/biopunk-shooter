@@ -73,8 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb61f9c9c864a47ba13be18aab9284e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseSpeed: 20
-  _baseDamage: 20
+  _impactEffectPrefab: {fileID: 227105739467614572, guid: 7b2bb9bab0ed0954792547d355bb0087, type: 3}
+  _defaultImpactDamage: 20
+  _raycastLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &4169808736225229866
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +192,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

@@ -1,4 +1,5 @@
-﻿using Items;
+﻿using System;
+using Entities.Player;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -10,69 +11,45 @@ namespace Weapons
     /// </summary>
     public class WeaponObject : MonoBehaviour
     {
-        private const float HEAT_THRESHOLD = 100f;
+        // private const float HEAT_THRESHOLD = 100f;
         
         [Header("References")]
         
         [SerializeField]
         private Transform _projectileSpawnPoint;
         
-        [Header("Config")]
-        
-        [SerializeField]
-        [Tooltip("The rounds per minute of the weapon.")]
-        private float _baseFireRateRpm = 60f;
-        
-        [SerializeField]
-        [Tooltip("The amount of heat generated per shot.")]
-        private float _baseHeatGeneratedPerShot = 10f;
-        
-        [SerializeField]
-        [Tooltip("The amount of heat removed per second.")]
-        private float _baseHeatRemovedPerSecond = 20f;
-        
-        [SerializeField]
-        [Tooltip("The time it takes for the barrel to cool down, after it has overheated.")]
-        private float _baseOverheatCooldownSeconds = 2f;
-        
-        // Calculated from the current weapon parts.
-        private float _fireRateRpm;
-        private float _generatedHeatPerShot;
-        private float _heatRemovedPerSecond;
-        private float _overheatCooldownSeconds;
-        
-        [ReadOnly, SerializeField]
+        /*[ReadOnly, SerializeField]
         private float _currentHeat;
         [ReadOnly, SerializeField]
-        private float _overheatCooldownLeft;
+        private float _overheatCooldownLeft;*/
         [ReadOnly, SerializeField]
         private float _fireDelayLeft;
         
-        public DynamicWeaponData DynamicData { get; private set; } = new DynamicWeaponData(null);
-        private Projectile _projectilePrefab;
+        public ProjectileBehaviour DynamicBehaviour { get; private set; } = new(Array.Empty<ProjectileEventData>());
         private IDamageCauser _owner;
+        private RuntimeWeaponData _runtimeData;
         
         
-        public void Initialize(Projectile projectilePrefab, IDamageCauser owner)
+        public void Initialize(RuntimeWeaponData data, IDamageCauser owner)
         {
-            _projectilePrefab = projectilePrefab;
+            _runtimeData?.DropAllEventItems(transform.position);
+            _runtimeData = data;
             _owner = owner;
-            _fireRateRpm = _baseFireRateRpm;
-            _generatedHeatPerShot = _baseHeatGeneratedPerShot;
-            _heatRemovedPerSecond = _baseHeatRemovedPerSecond;
-            _overheatCooldownSeconds = _baseOverheatCooldownSeconds;
+            DynamicBehaviour = new ProjectileBehaviour(_runtimeData.Events);
+            SetEvents(_runtimeData.Events);
         }
-        
-        
-        public void SetParts(WeaponPartData[] parts)
+
+
+        public void SetEvents(ProjectileEventData[] projectileEventData)
         {
-            DynamicData = new DynamicWeaponData(parts);
+            _runtimeData.OverwriteEvents(projectileEventData);
+            DynamicBehaviour = new ProjectileBehaviour(_runtimeData.Events);
         }
 
 
         private void Update()
         {
-            // Handle overheating.
+            /*// Handle overheating.
             if (_overheatCooldownLeft > 0f)
             {
                 _overheatCooldownLeft -= Time.deltaTime;
@@ -85,7 +62,7 @@ namespace Weapons
                 {
                     _currentHeat = 0f;
                 }
-            }
+            }*/
             
             // Handle firing delay.
             if (_fireDelayLeft > 0f)
@@ -100,7 +77,10 @@ namespace Weapons
             if (_fireDelayLeft > 0f)
                 return;
             
-            if (_overheatCooldownLeft > 0f)
+            if (DynamicBehaviour.EventCount <= 0)
+                return;
+            
+            /*if (_overheatCooldownLeft > 0f)
                 return;
             
             if (_currentHeat >= HEAT_THRESHOLD)
@@ -109,16 +89,16 @@ namespace Weapons
                 return;
             }
             
-            _currentHeat += _generatedHeatPerShot;
+            _currentHeat += _generatedHeatPerShot;*/
             Fire();
-            _fireDelayLeft = 60f / _fireRateRpm;
+            _fireDelayLeft = 60f / _runtimeData.Weapon.FireRateRpm;
         }
 
 
         private void Fire()
         {
-            Projectile p = Instantiate(_projectilePrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
-            p.Initialize(DynamicData, _owner);
+            Projectile p = Instantiate(_runtimeData.Weapon.ProjectilePrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
+            p.Initialize(DynamicBehaviour, _owner, 0);
         }
     }
 }

@@ -114,7 +114,7 @@ namespace UI
                     return;
                 }
 
-                Instantiate(_itemData.WorldItemPrefab, _oldPosition, Quaternion.identity).Initialize(_itemData);
+                WorldItemSpawner.SpawnWorldItem(_itemData, _oldPosition);
                 DeInit();
                 return;
             }
@@ -122,11 +122,11 @@ namespace UI
             // If no suitable slot was found, move back to old slot or drop the item back into the world.
             if (_oldSlot != null)
             {
-                Instantiate(_itemData.WorldItemPrefab, PlayerController.Instance.transform.position, Quaternion.identity).Initialize(_itemData);
+                WorldItemSpawner.SpawnWorldItem(_itemData, PlayerController.Instance.transform.position);
                 DeInit();
                 return;
             }
-            Instantiate(_itemData.WorldItemPrefab, _oldPosition, Quaternion.identity).Initialize(_itemData);
+            WorldItemSpawner.SpawnWorldItem(_itemData, _oldPosition);
             DeInit();
         }
 

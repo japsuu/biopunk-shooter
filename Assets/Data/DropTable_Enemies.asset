@@ -19,7 +19,3 @@ MonoBehaviour:
     Weight: 10
   - Object: {fileID: 11400000, guid: 3b5393de009ca2749b9bcc3041b5a35d, type: 2}
     Weight: 10
-  - Object: {fileID: 11400000, guid: a92f51ae7623b4e4abcfd7901a8cc27d, type: 2}
-    Weight: 10
-  - Object: {fileID: 11400000, guid: f0f658687c1ac9749b4eeb48241eb4cf, type: 2}
-    Weight: 10

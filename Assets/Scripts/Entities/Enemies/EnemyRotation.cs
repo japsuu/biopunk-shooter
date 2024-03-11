@@ -5,6 +5,9 @@ namespace Entities.Enemies
 {
     public class EnemyRotation : EntityRotation
     {
+        [SerializeField]
+        private float _assumedProjectileSpeed = 18f;
+        
         private Enemy _enemy;
         
         protected override Vector2 RotateTowardsPosition => CalculateTargetPosition();
@@ -25,7 +28,7 @@ namespace Entities.Enemies
             Vector2 playerPos = PlayerController.Instance.transform.position;
             Vector2 playerVelocity = PlayerController.Instance.PlayerMovement.Rb.velocity;
             float playerMovementSpeed = PlayerController.Instance.PlayerMovement.MovementSpeed;
-            float projectileMovementSpeed = _enemy.Weapon.DynamicData.ProjectileSpeed;
+            float projectileMovementSpeed = _assumedProjectileSpeed;
             
             // Calculate the position we need to aim at, for the projectile to hit the player.
             Vector2 targetPosition = playerPos + playerVelocity * (Vector2.Distance(transform.position, playerPos) / projectileMovementSpeed);
