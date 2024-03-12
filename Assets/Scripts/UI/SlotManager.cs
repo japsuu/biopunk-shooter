@@ -95,11 +95,11 @@ namespace UI
             }
             _leftWeaponSlot.Initialize(SlotType.Weapon, () =>
             {
-                PlayerController.Instance.OnWeaponSlotChanged(_currentLeftWeapon, false);
+                PlayerController.Instance.OnWeaponSlotChanged((WeaponData)_leftWeaponSlot.AssignedItem, false);
             });
             _rightWeaponSlot.Initialize(SlotType.Weapon, () =>
             {
-                PlayerController.Instance.OnWeaponSlotChanged(_currentRightWeapon, true);
+                PlayerController.Instance.OnWeaponSlotChanged((WeaponData)_rightWeaponSlot.AssignedItem, true);
             });
             
             PlayerWeaponManager.OnWeaponChanged += OnWeaponChanged;
