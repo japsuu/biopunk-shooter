@@ -91,10 +91,20 @@ namespace Entities.Player
             if (Input.GetMouseButton(0))
             {
                 _leftWeapon.TryFire();
+                SlotManager.Instance.PlayFiringAnimation(false);
+            }
+            else
+            {
+                SlotManager.Instance.PlayIdleAnimation(false);
             }
             if (Input.GetMouseButton(1))
             {
                 _rightWeapon.TryFire();
+                SlotManager.Instance.PlayFiringAnimation(true);
+            }
+            else
+            {
+                SlotManager.Instance.PlayIdleAnimation(true);
             }
         }
 

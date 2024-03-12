@@ -3,7 +3,6 @@ using Thirdparty.UnityTooltips.Scripts.Systems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 namespace Thirdparty.UnityTooltips.Scripts.UI
 {

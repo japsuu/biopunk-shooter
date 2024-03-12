@@ -1,5 +1,4 @@
-﻿using System;
-using Items;
+﻿using Items;
 using Thirdparty.UnityTooltips.Scripts.UI;
 using UI;
 using UnityEngine;

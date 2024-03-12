@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3bd1f3886c34194a6fc9f5e471bd6a7, type: 3}
-  m_Name: Enemy_T2
+  m_Name: Enemy_Mid
   m_EditorClassIdentifier: 
   Health: 40
   Damage: 15

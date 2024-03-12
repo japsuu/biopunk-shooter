@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entities.Player;
 using Items;
+using NaughtyAttributes;
 using Singletons;
 using UnityEngine;
 using Weapons;
@@ -12,6 +13,12 @@ namespace UI
     /// </summary>
     public class SlotManager : SingletonBehaviour<SlotManager>
     {
+        [SerializeField]
+        private Animator _leftWeaponAnimator;
+        
+        [SerializeField]
+        private Animator _rightWeaponAnimator;
+
         [SerializeField]
         private List<Slot> _bodySlots;
         
@@ -34,6 +41,50 @@ namespace UI
         
         private List<Slot> _leftEventSlots = new();
         private List<Slot> _rightEventSlots = new();
+        [SerializeField, ReadOnly]
+        private WeaponData _currentLeftWeapon;
+        [SerializeField, ReadOnly]
+        private WeaponData _currentRightWeapon;
+        private bool _leftPlayingIdle;
+        private bool _rightPlayingIdle;
+
+
+        public void PlayIdleAnimation(bool isRight)
+        {
+            if (isRight)
+            {
+                if (_rightPlayingIdle)
+                    return;
+                _rightWeaponAnimator.Play(_currentRightWeapon.IdleAnimationName);
+                _rightPlayingIdle = true;
+            }
+            else
+            {
+                if (_leftPlayingIdle)
+                    return;
+                _leftWeaponAnimator.Play(_currentLeftWeapon.IdleAnimationName);
+                _leftPlayingIdle = true;
+            }
+        }
+        
+        
+        public void PlayFiringAnimation(bool isRight)
+        {
+            if (isRight)
+            {
+                if (!_rightPlayingIdle)
+                    return;
+                _rightWeaponAnimator.Play(_currentRightWeapon.FiringAnimationName);
+                _rightPlayingIdle = false;
+            }
+            else
+            {
+                if (!_leftPlayingIdle)
+                    return;
+                _leftWeaponAnimator.Play(_currentLeftWeapon.FiringAnimationName);
+                _leftPlayingIdle = false;
+            }
+        }
         
         
         private void Awake()
@@ -42,8 +93,14 @@ namespace UI
             {
                 slot.Initialize(SlotType.Body, OnOrganSlotContentsChanged);
             }
-            _leftWeaponSlot.Initialize(SlotType.Weapon, () => PlayerController.Instance.OnWeaponSlotChanged((WeaponData)_leftWeaponSlot.AssignedItem, false));
-            _rightWeaponSlot.Initialize(SlotType.Weapon, () => PlayerController.Instance.OnWeaponSlotChanged((WeaponData)_rightWeaponSlot.AssignedItem, true));
+            _leftWeaponSlot.Initialize(SlotType.Weapon, () =>
+            {
+                PlayerController.Instance.OnWeaponSlotChanged(_currentLeftWeapon, false);
+            });
+            _rightWeaponSlot.Initialize(SlotType.Weapon, () =>
+            {
+                PlayerController.Instance.OnWeaponSlotChanged(_currentRightWeapon, true);
+            });
             
             PlayerWeaponManager.OnWeaponChanged += OnWeaponChanged;
         }
@@ -52,14 +109,15 @@ namespace UI
         private void OnWeaponChanged((RuntimeWeaponData newWeapon, bool isRightWeapon) obj)
         {
             (RuntimeWeaponData newWeapon, bool isRightWeapon) = obj;
-            
             if (isRightWeapon)
             {
+                _currentRightWeapon = newWeapon.Weapon;
                 _rightEventSlots = GenerateEventSlots(newWeapon, true);
                 _rightWeaponSlot.AssignItem(newWeapon.Weapon, false);
             }
             else
             {
+                _currentLeftWeapon = newWeapon.Weapon;
                 _leftEventSlots = GenerateEventSlots(newWeapon, false);
                 _leftWeaponSlot.AssignItem(newWeapon.Weapon, false);
             }

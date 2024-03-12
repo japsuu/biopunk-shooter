@@ -1,5 +1,4 @@
-﻿using System;
-using Items;
+﻿using Items;
 using UnityEngine;
 
 namespace Weapons
@@ -10,6 +9,14 @@ namespace Weapons
     [CreateAssetMenu(menuName = "Weapons/Create WeaponData", fileName = "WeaponData_", order = 0)]
     public class WeaponData : ItemData
     {
+        [Header("Animation Config")]
+        
+        [SerializeField]
+        private AnimationClip _idleClip;
+        
+        [SerializeField]
+        private AnimationClip _firingClip;
+        
         [Header("Weapon Config")]
         
         [SerializeField]
@@ -36,13 +43,15 @@ namespace Weapons
         [Tooltip("The time it takes for the barrel to cool down, after it has overheated.")]
         private float _overheatCooldownSeconds = 2f;*/
         
+        public string IdleAnimationName => _idleClip.name;
+        public string FiringAnimationName => _firingClip.name;
         public override ItemType Type => ItemType.Weapon;
         public float FireRateRpm => _fireRateRpm;
         public Projectile ProjectilePrefab => _projectilePrefab;
 
         
         /// <summary>
-        /// Gets the default projectile events array sized to the max projectile events, and preinitialized with the default events.
+        /// Gets the default projectile events array sized to the max projectile events.
         /// </summary>
         /// <returns></returns>
         public ProjectileEventData[] GetEventArray()
