@@ -7,7 +7,7 @@ namespace Items
         [SerializeField]
         private string _name;
         
-        [SerializeField]
+        [SerializeField, Multiline]
         private string _tooltipDescription;
         
         [SerializeField]
