@@ -3803,7 +3803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1277115855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3818,9 +3818,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wormholePrefab: {fileID: 7594623034666675001, guid: 87fe82104e9225b439e48bbcab6bae39, type: 3}
   _enemyDatabase: {fileID: 11400000, guid: 00aac7befd37c5043988a418ff73b321, type: 2}
-  _enemySpawnDelayRange: {x: 6, y: 10}
-  _wormholeSpawnIntervalRange: {x: 5, y: 8}
-  _wormholeSpawnRange: 40
+  _enemySpawnDelayRange: {x: 4, y: 6}
+  _wormholeSpawnIntervalRange: {x: 1, y: 2}
+  _wormholeGroupCenterMaxRange: 40
+  _wormholeGroupMaxSize: 10
+  _waveCooldown: 10
 --- !u!4 &1277115856
 Transform:
   m_ObjectHideFlags: 0

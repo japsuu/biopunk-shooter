@@ -40,6 +40,7 @@ namespace Entities.Player
         public float MovementSpeed => _baseMovementSpeed * GetTotalModifier(_movementSpeedModifiers, 0.1f);
         public float FortitudeFactor => _baseFortitudeFactor * GetTotalModifier(_fortitudeFactorModifiers, 0);
         public float CurrentHealth { get; private set; }
+        public bool IsAlive => CurrentHealth > 0f;
         
         public float KillRewardXp => 20f;
 
@@ -59,7 +60,7 @@ namespace Entities.Player
         public void TakeDamage(float damage)
         {
             CurrentHealth -= damage * FortitudeFactor;
-            if (CurrentHealth <= 0f)
+            if (!IsAlive)
             {
                 Die();
             }
@@ -102,7 +103,7 @@ namespace Entities.Player
         
         private void Die()
         {
-            Debug.Log("Player died!");
+            Debug.LogWarning("Player died!");
         }
 
 

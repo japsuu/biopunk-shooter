@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Entities.Enemies
     [RequireComponent(typeof(SpriteRenderer))]
     public class Wormhole : MonoBehaviour
     {
+        public static event Action<Wormhole> WormholeDestroyed;
+        
         private SpriteRenderer _spriteRenderer;
         
         private Enemy _enemyPrefab;
@@ -60,6 +63,7 @@ namespace Entities.Enemies
         private void DestroySelf()
         {
             _destroying = true;
+            WormholeDestroyed?.Invoke(this);
             _spriteRenderer.DOFade(0, 1.0f).OnComplete(() => Destroy(gameObject, 1f));
         }
     }

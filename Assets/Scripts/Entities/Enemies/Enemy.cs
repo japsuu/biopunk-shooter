@@ -1,4 +1,5 @@
-﻿using Cameras;
+﻿using System;
+using Cameras;
 using Entities.Player;
 using Items;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Entities.Enemies
     [RequireComponent(typeof(EnemyRotation))]
     public class Enemy : MonoBehaviour, IDamageable, IDamageCauser
     {
+        public static event Action<Enemy> EnemyCreated;
+        public static event Action<Enemy> EnemyDestroyed;
+        
         [SerializeField]
         private WeaponData _defaultWeapon;  //TODO: Randomize weapon.
         
@@ -52,6 +56,8 @@ namespace Entities.Enemies
             
             _rotation.Initialize(this);
             //TODO: Set weapon parts.
+            
+            EnemyCreated?.Invoke(this);
         }
 
 
@@ -81,6 +87,13 @@ namespace Entities.Enemies
         {
             SpawnLoot();
             notifyOfKill?.NotifyOfKill(this);
+            DestroySelf();
+        }
+
+
+        private void DestroySelf()
+        {
+            EnemyDestroyed?.Invoke(this);
             Destroy(gameObject);
         }
 

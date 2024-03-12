@@ -84,11 +84,8 @@ namespace Entities.Player
             if (!_allowFiring)
                 return;
             
-            if(DraggableItem.Instance.IsDragging)
-                return;
-            
             // Handle firing.
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !DraggableItem.Instance.IsDragging)
             {
                 _leftWeapon.TryFire();
                 SlotManager.Instance.PlayFiringAnimation(false);
@@ -97,7 +94,7 @@ namespace Entities.Player
             {
                 SlotManager.Instance.PlayIdleAnimation(false);
             }
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) && !DraggableItem.Instance.IsDragging)
             {
                 _rightWeapon.TryFire();
                 SlotManager.Instance.PlayFiringAnimation(true);
