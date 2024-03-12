@@ -23,6 +23,18 @@ namespace Weapons
         }
         
         
+        public ProjectileBehaviour(ProjectileBehaviour other)
+        {
+            _events = new ProjectileEventData[other._events.Length];
+            for (int i = 0; i < _events.Length; i++)
+            {
+                if (other._events[i] != null)
+                    _events[i] = other._events[i];
+            }
+            EventCount = other.EventCount;
+        }
+        
+        
         public IEnumerator ApplyEvents(Projectile projectile, int startOffset)
         {
             for (int i = startOffset; i < _events.Length; i++)
@@ -36,22 +48,12 @@ namespace Weapons
         }
         
         
-        public void HandleHit(Projectile projectile, Collider2D other)
+        public bool HandleHit(Projectile projectile, RaycastHit2D hit)
         {
-            if (_currentEvent != null)
-                _currentEvent.HandleHit(projectile, other);
-            else
-            {
-                if (other.TryGetComponent(out IDamageable damageable))
-                    damageable.Damage(projectile.ImpactDamage, projectile.Origin);
+            if (_currentEvent == null)
+                return false;
             
-                // Spawn a hit prefab opposite to the velocity of the projectile. Remember this is a top-down 2D project.
-                Vector3 position = projectile.transform.position;
-                Quaternion rotation = Quaternion.LookRotation(-projectile.transform.right, Vector3.up);
-                projectile.SpawnHitPrefab(position, rotation);
-                
-                projectile.DestroySelf();
-            }
+            return _currentEvent.HandleHit(projectile, hit);
         }
     }
 }

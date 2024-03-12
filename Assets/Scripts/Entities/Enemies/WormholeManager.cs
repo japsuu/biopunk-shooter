@@ -14,9 +14,6 @@ namespace Entities.Enemies
         private EnemyDataDatabase _enemyDatabase;
 
         [SerializeField]
-        private Enemy _enemyPrefab;
-
-        [SerializeField]
         [Tooltip("How long it takes for a wormhole to spawn an enemy.")]
         [MinMaxSlider(1.0f, 10.0f)]
         private Vector2 _enemySpawnDelayRange = new(3.0f, 6.0f);
@@ -60,7 +57,7 @@ namespace Entities.Enemies
             wormhole.transform.parent = transform;
             wormhole.gameObject.SetActive(true);
             wormhole.gameObject.name = "Wormhole";
-            wormhole.Initialize(_enemyPrefab, _enemyDataSelector.SelectRandomItem(), Random.Range(_enemySpawnDelayRange.x, _enemySpawnDelayRange.y));
+            wormhole.Initialize(_enemyDataSelector.SelectRandomItem(), Random.Range(_enemySpawnDelayRange.x, _enemySpawnDelayRange.y));
         }
 
 

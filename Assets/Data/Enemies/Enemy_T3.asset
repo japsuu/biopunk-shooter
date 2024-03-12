@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_T3
   m_EditorClassIdentifier: 
   Health: 120
-  Damage: 50
+  Damage: 10
   KillRewardXp: 80
   _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}
+  _prefab: {fileID: 4117727092640937621, guid: 3d2c3280435f4a94db23564fb2572264, type: 3}

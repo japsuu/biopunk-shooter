@@ -17,6 +17,9 @@ namespace Weapons
         
         [SerializeField]
         private Transform _projectileSpawnPoint;
+
+        [SerializeField]
+        private GameObject _muzzleFlashPrefab;
         
         /*[ReadOnly, SerializeField]
         private float _currentHeat;
@@ -99,6 +102,10 @@ namespace Weapons
         {
             Projectile p = Instantiate(_runtimeData.Weapon.ProjectilePrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
             p.Initialize(DynamicBehaviour, _owner, 0);
+            
+            // Generate a muzzle flash.
+            if(_muzzleFlashPrefab != null)
+                Instantiate(_muzzleFlashPrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
         }
     }
 }

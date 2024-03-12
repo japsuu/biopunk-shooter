@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bd1f3886c34194a6fc9f5e471bd6a7, type: 3}
   m_Name: Enemy_T1
   m_EditorClassIdentifier: 
-  Health: 30
-  Damage: 20
+  Health: 20
+  Damage: 5
   KillRewardXp: 20
   _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}
+  _prefab: {fileID: 4117727092640937621, guid: 4a84b6048a272974b91c4581a3bcfc08, type: 3}

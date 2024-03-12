@@ -26,19 +26,11 @@ namespace Weapons
 
         /// <summary>
         /// Called when the projectile hits something.
-        /// Default behaviour is to cause damage to the hit object and destroy the projectile.
+        /// Returns true if the event handled the hit, and native hit handling should be skipped.
         /// </summary>
-        public virtual void HandleHit(Projectile projectile, Collider2D other)
+        public virtual bool HandleHit(Projectile projectile, RaycastHit2D hit)
         {
-            if (other.TryGetComponent(out IDamageable damageable))
-                damageable.Damage(projectile.ImpactDamage, projectile.Origin);
-            
-            // Spawn a hit prefab opposite to the velocity of the projectile.
-            Vector3 position = projectile.transform.position;
-            Quaternion rotation = Quaternion.LookRotation(-projectile.transform.forward, Vector3.up);
-            projectile.SpawnHitPrefab(position, rotation);
-                
-            projectile.DestroySelf();
+            return false;
         }
     }
 }

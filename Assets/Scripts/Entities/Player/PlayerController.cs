@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Items;
 using Singletons;
-using UI;
 using UnityEngine;
 using Weapons;
-using World;
 using Random = UnityEngine.Random;
 
 namespace Entities.Player

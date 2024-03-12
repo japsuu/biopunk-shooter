@@ -1,4 +1,5 @@
 ﻿using System;
+using UI;
 using UnityEngine;
 using Weapons;
 
@@ -15,8 +16,15 @@ namespace Entities.Player
         
         [SerializeField]
         private WeaponData _defaultLeftData;
+        
         [SerializeField]
         private WeaponData _defaultRightData;
+        
+        [SerializeField]
+        private ProjectileEventData[] _defaultEventsLeft;
+        
+        [SerializeField]
+        private ProjectileEventData[] _defaultEventsRight;
         
         [SerializeField]
         private WeaponObject _leftWeapon;
@@ -30,23 +38,29 @@ namespace Entities.Player
 
         private void Start()
         {
-            ChangeLeftWeapon(_defaultLeftData);
-            ChangeRightWeapon(_defaultRightData);
+            ChangeLeftWeapon(_defaultLeftData, _defaultEventsLeft);
+            ChangeRightWeapon(_defaultRightData, _defaultEventsRight);
         }
         
         
-        public void ChangeLeftWeapon(WeaponData weaponData)
+        public void ChangeLeftWeapon(WeaponData weaponData, ProjectileEventData[] defaultEvents = null)
         {
             RuntimeWeaponData d = new(weaponData);
+            
+            if (defaultEvents != null)
+                d.CopyEvents(defaultEvents);
 
             _leftWeapon.Initialize(d, this);
             OnWeaponChanged?.Invoke((d, false));
         }
 
 
-        public void ChangeRightWeapon(WeaponData weaponData)
+        public void ChangeRightWeapon(WeaponData weaponData, ProjectileEventData[] defaultEvents = null)
         {
             RuntimeWeaponData d = new(weaponData);
+            
+            if (defaultEvents != null)
+                d.CopyEvents(defaultEvents);
             
             _rightWeapon.Initialize(d, this);
             OnWeaponChanged?.Invoke((d, true));
@@ -68,6 +82,9 @@ namespace Entities.Player
         private void Update()
         {
             if (!_allowFiring)
+                return;
+            
+            if(DraggableItem.Instance.IsDragging)
                 return;
             
             // Handle firing.

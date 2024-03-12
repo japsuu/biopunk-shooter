@@ -23,9 +23,9 @@ namespace Entities.Enemies
         }
 
 
-        public void Initialize(Enemy enemyPrefab, EnemyData enemyData, float enemySpawnDelay)
+        public void Initialize(EnemyData enemyData, float enemySpawnDelay)
         {
-            _enemyPrefab = enemyPrefab;
+            _enemyPrefab = enemyData.Prefab;
             _enemyData = enemyData;
             _enemySpawnTimer = enemySpawnDelay;
         }

@@ -19,3 +19,19 @@ MonoBehaviour:
     Weight: 10
   - Object: {fileID: 11400000, guid: 3b5393de009ca2749b9bcc3041b5a35d, type: 2}
     Weight: 10
+  - Object: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: 32df120bc4082fa41a49ff824267c8aa, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: ec83b1078ccd6b444baaa19ce071217a, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: 7548192ba6f22764099279723fb1fca2, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: c0bc805fa3d5ab2438d608dca3068e1a, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
+    Weight: 10
+  - Object: {fileID: 11400000, guid: ed5d1f6199e5e954791c3c5d055118a1, type: 2}
+    Weight: 10

@@ -13,6 +13,10 @@ namespace Entities.Enemies
         [SerializeField]
         private DropTable _dropTable;
         
+        [SerializeField]
+        private Enemy _prefab;
+        
         public DropTable DropTable => _dropTable;
+        public Enemy Prefab => _prefab;
     }
 }

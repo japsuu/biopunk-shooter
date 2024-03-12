@@ -1,9 +1,8 @@
-﻿using Camera;
+﻿using Cameras;
 using Entities.Player;
 using Items;
 using UnityEngine;
 using Weapons;
-using World;
 using Random = UnityEngine.Random;
 
 namespace Entities.Enemies
@@ -16,13 +15,13 @@ namespace Entities.Enemies
         private WeaponData _defaultWeapon;  //TODO: Randomize weapon.
         
         [SerializeField]
+        private ProjectileEventData[] _defaultEvents;
+        
+        [SerializeField]
         private SpriteRenderer _renderer;
         
         [SerializeField]
         private WeaponObject _weapon;
-        
-        [SerializeField]
-        private Projectile _projectilePrefab; 
 
         private EnemyMovement _movement;
         private EnemyRotation _rotation;
@@ -44,7 +43,13 @@ namespace Entities.Enemies
         {
             _data = data;
             _health = _data.Health;
-            _weapon.Initialize(new RuntimeWeaponData(_defaultWeapon), this);
+            RuntimeWeaponData weaponData = new RuntimeWeaponData(_defaultWeapon);
+            
+            if (_defaultEvents != null)
+                weaponData.CopyEvents(_defaultEvents);
+            
+            _weapon.Initialize(weaponData, this);
+            
             _rotation.Initialize(this);
             //TODO: Set weapon parts.
         }

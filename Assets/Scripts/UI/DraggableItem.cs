@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Entities.Player;
 using Items;
 using Singletons;
+using Thirdparty.UnityTooltips.Scripts.Systems;
+using Thirdparty.UnityTooltips.Scripts.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,8 +19,14 @@ namespace UI
     {
         public static event Action<ItemData> OnDraggedItemChanged;
         
+        public bool IsDragging => _itemData != null;
+        
+        [SerializeField]
+        private Image _assignedItemBackgroundImage;
         [SerializeField]
         private Image _assignedItemImage;
+        [SerializeField]
+        private Image _assignedItemOverlayImage;
 
         private RectTransform _rectTransform;
         
@@ -52,7 +60,10 @@ namespace UI
 
         private void Init(ItemData itemData)
         {
+            _assignedItemBackgroundImage.color = itemData.UiBackgroundColor;
+            _assignedItemBackgroundImage.sprite = itemData.UiBackgroundSprite;
             _assignedItemImage.sprite = itemData.UiSprite;
+            _assignedItemOverlayImage.sprite = itemData.UiOverlaySprite;
             OnDraggedItemChanged?.Invoke(itemData);
         }
         
@@ -72,6 +83,12 @@ namespace UI
             if (_itemData == null)
                 return;
             
+            TooltipControlSystem.Instance.OnPointerDisplayModeChanged(
+                new PointerDisplayModeChanged
+                {
+                    Mode = PointerDisplayMode.Grabbing
+                });
+            
             _rectTransform.position = Input.mousePosition;
             
             Slot newSlot = TryFindSlot();
@@ -83,24 +100,41 @@ namespace UI
             {
                 if (newSlot.CanAcceptItem(_itemData))
                 {
-                    // Swap items.
-                    if (newSlot.HasItem)
+                    if (_oldSlot != null)
                     {
-                        if (_oldSlot.CanAcceptItem(newSlot.AssignedItem))
+                        // Swap items.
+                        if (newSlot.HasItem)
                         {
-                            ItemData oldItem = newSlot.AssignedItem;
-                            newSlot.AssignItem(_itemData);
-                            _oldSlot.AssignItem(oldItem);
+                            if (_oldSlot.CanAcceptItem(newSlot.AssignedItem))
+                            {
+                                ItemData oldItem = newSlot.AssignedItem;
+                                newSlot.AssignItem(_itemData);
+                                _oldSlot.AssignItem(oldItem);
+                                DeInit();
+                                return;
+                            }
+
+                            _oldSlot.AssignItem(_itemData);
                             DeInit();
                             return;
                         }
 
-                        _oldSlot.AssignItem(_itemData);
+                        // Assign item.
+                        newSlot.AssignItem(_itemData);
+                        DeInit();
+                        return;
+                    }
+                    
+                    // The item was dragged from the world, but the new slot already has an item.
+                    // Drop the existing item back into the world, and assign the new item to the slot.
+                    if (newSlot.HasItem)
+                    {
+                        WorldItemSpawner.SpawnWorldItem(newSlot.AssignedItem, _oldPosition);
+                        newSlot.AssignItem(_itemData);
                         DeInit();
                         return;
                     }
 
-                    // Assign item.
                     newSlot.AssignItem(_itemData);
                     DeInit();
                     return;

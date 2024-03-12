@@ -1,5 +1,6 @@
 ﻿using System;
 using Items;
+using Thirdparty.UnityTooltips.Scripts.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,7 +17,14 @@ namespace UI
     public class Slot : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         [SerializeField]
+        private ReactToPointer _tooltip;
+        
+        [SerializeField]
+        private Image _assignedItemBackgroundImage;
+        [SerializeField]
         private Image _assignedItemImage;
+        [SerializeField]
+        private Image _assignedItemOverlayImage;
         
         [SerializeField]
         private Image _highlightItemCompatibilityImage;
@@ -45,6 +53,12 @@ namespace UI
         public bool HasItem => AssignedItem != null;
 
 
+        private void Awake()
+        {
+            _tooltip.enabled = false;
+        }
+
+
         /// <summary>
         /// Called by the SlotManager on startup.
         /// </summary>
@@ -53,6 +67,12 @@ namespace UI
             SlotType = type;
             _onContentsChangeCallback = onContentsChangeCallback;
             DraggableItem.OnDraggedItemChanged += OnDraggedItemChanged;
+        }
+
+
+        private void OnDestroy()
+        {
+            DraggableItem.OnDraggedItemChanged -= OnDraggedItemChanged;
         }
 
 
@@ -74,11 +94,20 @@ namespace UI
         }
 
 
-        private void OnAssignItem(ItemData item, bool callCallback)
+        private void OnAssignItem(ItemData itemData, bool callCallback)
         {
-            AssignedItem = item;
-            _assignedItemImage.sprite = item.UiSprite;
+            AssignedItem = itemData;
+            _assignedItemBackgroundImage.color = itemData.UiBackgroundColor;
+            _assignedItemBackgroundImage.sprite = itemData.UiBackgroundSprite;
+            _assignedItemImage.sprite = itemData.UiSprite;
+            _assignedItemOverlayImage.sprite = itemData.UiOverlaySprite;
             _assignedItemImage.enabled = true;
+
+            _tooltip.enabled = true;
+            _tooltip.PointerDisplayMode = _canRemoveItem ? PointerDisplayMode.Grab : PointerDisplayMode.Point;
+            
+            _tooltip.TooltipMessage = itemData.GetTooltipText();
+            
             if (callCallback)
                 _onContentsChangeCallback?.Invoke();
         }
@@ -87,6 +116,7 @@ namespace UI
         private void OnRemoveItem()
         {
             AssignedItem = null;
+            _tooltip.enabled = false;
             _assignedItemImage.sprite = null;
             _assignedItemImage.enabled = false;
             _onContentsChangeCallback?.Invoke();

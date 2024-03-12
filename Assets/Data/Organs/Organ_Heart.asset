@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecefae7af274fe0b0b93ea58ba6b2f5, type: 3}
   m_Name: Organ_Heart
   m_EditorClassIdentifier: Assembly-CSharp:Items:OrganData
-  _worldItemPrefab: {fileID: 8776832055229204711, guid: 654715c4379e481489e3e583ed84620c, type: 3}
+  _name: 
+  _tooltipDescription: 
+  _uiBackgroundColor: {r: 1, g: 0.654902, b: 0.654902, a: 1}
+  _uiBackgroundSprite: {fileID: 21300000, guid: aef07278245f3ca448bd758e363fbba4, type: 3}
   _uiSprite: {fileID: 21300000, guid: a6ef1921b8de6974dbd9689b62a88576, type: 3}
+  _uiOverlaySprite: {fileID: 0}
   _maxHealth: 0.2
   _healthRegenPerSec: 1
   _movementSpeed: 0

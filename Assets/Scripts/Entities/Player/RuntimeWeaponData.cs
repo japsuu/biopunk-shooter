@@ -19,13 +19,26 @@ namespace Entities.Player
         public void DropAllEventItems(Vector2 position)
         {
             foreach (ProjectileEventData eventData in Events)
-                WorldItemSpawner.SpawnWorldItem(eventData, position);
+            {
+                if (eventData != null)
+                    WorldItemSpawner.SpawnWorldItem(eventData, position + Random.insideUnitCircle);
+            }
         }
         
         
         public void OverwriteEvents(ProjectileEventData[] newEvents)
         {
             Events = newEvents;
+        }
+        
+        
+        public void CopyEvents(ProjectileEventData[] newEvents)
+        {
+            for (int i = 0; i < newEvents.Length; i++)
+            {
+                if (newEvents[i] != null)
+                    Events[i] = newEvents[i];
+            }
         }
     }
 }

@@ -24,9 +24,6 @@ namespace Weapons
         [Header("Event Config")]
         
         [SerializeField]
-        private ProjectileEventData[] _defaultProjectileEvents;
-        
-        [SerializeField]
         [Tooltip("How many projectile events can this weapon contain.")]
         [Range(2, 10)]
         private int _maxProjectileEvents = 6;
@@ -50,23 +47,7 @@ namespace Weapons
         /// <returns></returns>
         public ProjectileEventData[] GetEventArray()
         {
-            ProjectileEventData[] eventArray = new ProjectileEventData[_maxProjectileEvents];
-            for (int i = 0; i < _defaultProjectileEvents.Length; i++)
-            {
-                eventArray[i] = _defaultProjectileEvents[i];
-            }
-
-            return eventArray;
-        }
-
-
-        private void OnValidate()
-        {
-            if (_defaultProjectileEvents.Length <= _maxProjectileEvents)
-                return;
-            
-            Debug.LogWarning("The default projectile events array is longer than the max projectile events. Truncating the array.");
-            Array.Resize(ref _defaultProjectileEvents, _maxProjectileEvents);
+            return new ProjectileEventData[_maxProjectileEvents];
         }
     }
 }
