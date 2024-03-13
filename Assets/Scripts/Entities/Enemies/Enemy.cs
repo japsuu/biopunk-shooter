@@ -46,6 +46,7 @@ namespace Entities.Enemies
         public void Initialize(EnemyData data)
         {
             _data = data;
+            _movement.MovementSpeed = _data.MovementSpeed;
             _health = _data.Health;
             RuntimeWeaponData weaponData = new RuntimeWeaponData(_defaultWeapon);
             

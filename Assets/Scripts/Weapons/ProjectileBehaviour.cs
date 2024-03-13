@@ -45,6 +45,9 @@ namespace Weapons
                     continue;
                 yield return _currentEvent.ApplyToProjectile(projectile);
             }
+
+            // Default 1s delay before destroying the projectile.
+            yield return new WaitForSeconds(1f);
         }
         
         
