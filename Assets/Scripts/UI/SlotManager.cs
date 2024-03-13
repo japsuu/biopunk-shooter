@@ -49,18 +49,18 @@ namespace UI
         private bool _rightPlayingIdle;
 
 
-        public void PlayIdleAnimation(bool isRight)
+        public void PlayIdleAnimation(bool isRight, bool force = false)
         {
             if (isRight)
             {
-                if (_rightPlayingIdle)
+                if (!force && _rightPlayingIdle)
                     return;
                 _rightWeaponAnimator.Play(_currentRightWeapon.IdleAnimationName);
                 _rightPlayingIdle = true;
             }
             else
             {
-                if (_leftPlayingIdle)
+                if (!force && _leftPlayingIdle)
                     return;
                 _leftWeaponAnimator.Play(_currentLeftWeapon.IdleAnimationName);
                 _leftPlayingIdle = true;
@@ -114,12 +114,14 @@ namespace UI
                 _currentRightWeapon = newWeapon.Weapon;
                 _rightEventSlots = GenerateEventSlots(newWeapon, true);
                 _rightWeaponSlot.AssignItem(newWeapon.Weapon, false);
+                PlayIdleAnimation(true, true);  // Force the animation to update.
             }
             else
             {
                 _currentLeftWeapon = newWeapon.Weapon;
                 _leftEventSlots = GenerateEventSlots(newWeapon, false);
                 _leftWeaponSlot.AssignItem(newWeapon.Weapon, false);
+                PlayIdleAnimation(false, true);  // Force the animation to update.
             }
         }
 
