@@ -35,11 +35,35 @@ namespace Weapons
         
         public void Initialize(RuntimeWeaponData data, IDamageCauser owner)
         {
-            _runtimeData?.DropAllEventItems(transform.position);
+            // Transfer the existing events from _runtimeData to the new data.
+            // If there are more events in the old data than what the new data can hold, the remaining events are dropped.
+            TransferEvents(data);
             _runtimeData = data;
             _owner = owner;
             DynamicBehaviour = new ProjectileBehaviour(_runtimeData.Events);
             SetEvents(_runtimeData.Events);
+        }
+
+
+        private void TransferEvents(RuntimeWeaponData data)
+        {
+            if (_runtimeData == null)
+                return;
+            
+            // Transfer the events from the old data to the new data.
+            int index = 0;
+            while (index < _runtimeData.Events.Length)
+            {
+                if (index >= data.Events.Length)
+                    break;
+                
+                data.Events[index] = _runtimeData.Events[index];
+                _runtimeData.Events[index] = null;
+                index++;
+            }
+            
+            // Drop the remaining extra events.
+            _runtimeData.DropAllEventItems(_projectileSpawnPoint.position);
         }
 
 
