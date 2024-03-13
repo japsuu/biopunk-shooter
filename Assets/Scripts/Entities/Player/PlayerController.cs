@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Items;
+using Saving;
 using Singletons;
 using UnityEngine;
 using Weapons;
-using Random = UnityEngine.Random;
 
 namespace Entities.Player
 {
@@ -14,9 +14,6 @@ namespace Entities.Player
     [RequireComponent(typeof(PlayerWeaponManager))]
     public class PlayerController : SingletonBehaviour<PlayerController>
     {
-        [SerializeField]
-        private List<ItemData> _testItemData;
-
         private PlayerRotation _playerRotation;
 
         public PlayerMovement PlayerMovement { get; private set; }
@@ -38,20 +35,7 @@ namespace Entities.Player
 
         private void Update()
         {
-            DoDebugStuff();
-            
             PlayerMovement.MovementSpeed = Vitals.MovementSpeed;
-        }
-
-
-        private void DoDebugStuff() //TODO: Remove before release.
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                ItemData item = _testItemData[Random.Range(0, _testItemData.Count)];
-                Vector2 position = (Vector2)transform.position + Random.insideUnitCircle * 3;
-                WorldItemSpawner.SpawnWorldItem(item, position);
-            }
         }
         
         
@@ -64,6 +48,18 @@ namespace Entities.Player
         public void OnWeaponSlotChanged(WeaponData newWeapon, bool isRight)
         {
             WeaponManager.SetWeapon(newWeapon, isRight);
+        }
+
+
+        public void OnPlayerDied()
+        {
+            PlayerMovement.enabled = false;
+            _playerRotation.enabled = false;
+            WeaponManager.enabled = false;
+            
+            HighScores.SaveHighScore(Mathf.RoundToInt(Stats.TotalExperience));
+            
+            Debug.LogWarning("TODO: Fade to black and load main menu.");
         }
     }
 }

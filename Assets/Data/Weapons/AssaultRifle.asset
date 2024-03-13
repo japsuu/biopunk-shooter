@@ -24,4 +24,4 @@ MonoBehaviour:
   _firingClip: {fileID: 7400000, guid: 13db8f5058d3b844aa7c4b12a511520b, type: 2}
   _projectilePrefab: {fileID: 1930847822085002051, guid: 0b5d77f0dbbe9e541a9bc607c2191aeb, type: 3}
   _fireRateRpm: 400
-  _maxProjectileEvents: 8
+  _maxProjectileEvents: 6

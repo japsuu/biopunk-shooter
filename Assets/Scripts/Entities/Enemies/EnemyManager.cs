@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Data;
 using Entities.Player;
 using NaughtyAttributes;
+using Singletons;
 using Thirdparty.WeightedRandomSelector.Interfaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Entities.Enemies
 {
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager : SingletonBehaviour<EnemyManager>
     {
         [SerializeField]
         private Wormhole _wormholePrefab;
@@ -37,7 +38,11 @@ namespace Entities.Enemies
         
         [SerializeField]
         [Tooltip("How long is the cooldown between waves, in seconds.")]
-        private float _waveCooldown = 10.0f;
+        private int _waveCooldown = 10;
+        
+        [SerializeField]
+        [Tooltip("How long a wave can last for, in seconds.")]
+        private float _maxWaveLength = 30f;
         
         [SerializeField]
         [Tooltip("How many enemies are spawned on the first wave.")]
@@ -46,6 +51,12 @@ namespace Entities.Enemies
         private IRandomSelector<EnemyData> _enemyDataSelector;
         private readonly List<Wormhole> _aliveWormholes = new();
         private readonly List<Enemy> _aliveEnemies = new();
+        
+        public int TimeUntilNextWave { get; private set; }
+        public int CurrentWave { get; private set; }
+        
+        private bool HasAliveEnemies => _aliveEnemies.Count > 0 || _aliveWormholes.Count > 0;
+        private bool IsPlayerAlive => PlayerController.Instance.Vitals.IsAlive;
 
 
         private void Awake()
@@ -84,37 +95,60 @@ namespace Entities.Enemies
 
         private IEnumerator MainWaveLoop()
         {
+            CurrentWave = 0;
             Coroutine waveCoroutine = null;
-            while (PlayerController.Instance.Vitals.IsAlive)
+            while (IsPlayerAlive)
             {
+                CurrentWave++;
+                TimeUntilNextWave = 0;
+                float waveStartTime = Time.time;
                 int playerLevel = PlayerController.Instance.Stats.Level;
-                int wormholeCount = _initialWaveEnemyCount + playerLevel;
+                int wormholeCount = _initialWaveEnemyCount + Mathf.RoundToInt(playerLevel * 1.5f);
                 Debug.Log($"Starting wave for player level {playerLevel} with {wormholeCount} wormholes.");
                 _aliveEnemies.Clear();
                 waveCoroutine = StartCoroutine(SpawnWormholes(wormholeCount));
                 
-                // Wait until all enemies are spawned and dead, or the player is dead.
-                while ((_aliveEnemies.Count > 0 || _aliveWormholes.Count > 0) && PlayerController.Instance.Vitals.IsAlive)
+                // Wait until all enemies are spawned and dead, or the player is dead, or the wave has lasted too long.
+                while (HasAliveEnemies && IsPlayerAlive && !HasWaveLastedTooLong(waveStartTime))
+                {
+                    TimeUntilNextWave = Mathf.RoundToInt(_maxWaveLength - (Time.time - waveStartTime));
                     yield return null;
+                }
                 
-                if (PlayerController.Instance.Vitals.IsAlive)
-                    yield return new WaitForSeconds(_waveCooldown);
+                if (IsPlayerAlive)
+                {
+                    // Wait for _waveCooldown seconds, while updating the TimeUntilNextWave property.
+                    for (int i = 0; i < _waveCooldown; i++)
+                    {
+                        TimeUntilNextWave = _waveCooldown - i;
+                        yield return new WaitForSeconds(1);
+                    }
+                }
             }
             
             if (waveCoroutine != null)
                 StopCoroutine(waveCoroutine);
 
-            foreach (Wormhole wormhole in _aliveWormholes)
+            for (int i = _aliveWormholes.Count - 1; i >= 0; i--)
+            {
+                Wormhole wormhole = _aliveWormholes[i];
                 wormhole.DestroySelf();
+            }
 
-            foreach (Enemy enemy in _aliveEnemies)
+            for (int i = _aliveEnemies.Count - 1; i >= 0; i--)
+            {
+                Enemy enemy = _aliveEnemies[i];
                 enemy.DestroySelf();
-            
+            }
+
             _aliveWormholes.Clear();
             _aliveEnemies.Clear();
             
             Debug.LogWarning("Game has ended. No more waves will be spawned.");
         }
+
+
+        private bool HasWaveLastedTooLong(float waveStartTime) => Time.time - waveStartTime >= _maxWaveLength;
 
 
         private IEnumerator SpawnWormholes(int count)

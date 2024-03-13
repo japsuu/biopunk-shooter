@@ -18,7 +18,11 @@ namespace Entities.Enemies
         [SerializeField]
         private Enemy _prefab;
         
+        [SerializeField]
+        private Sprite _uiImage;
+        
         public DropTable DropTable => _dropTable;
         public Enemy Prefab => _prefab;
+        public Sprite UiImage => _uiImage;
     }
 }

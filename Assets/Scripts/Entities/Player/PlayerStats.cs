@@ -11,21 +11,22 @@ namespace Entities.Player
         private const float EXPERIENCE_TO_LEVEL_FACTOR = 1.2f;
         private const float FIRST_LEVEL_EXPERIENCE = 100f;
         
-        private float _experience;
+        private float _levelExperience;
         private int _level;
         
-        public float Experience
+        public float LevelExperience
         {
-            get => _experience;
+            get => _levelExperience;
             private set
             {
-                _experience = value;
-                OnExperienceChanged?.Invoke(_experience);
+                _levelExperience = value;
+                OnExperienceChanged?.Invoke(_levelExperience);
             }
         }
 
         public float LevelFactor => (float)Math.Pow(EXPERIENCE_TO_LEVEL_FACTOR, Level - 1);
         public float ExperienceToNextLevel => FIRST_LEVEL_EXPERIENCE * LevelFactor;
+        public float TotalExperience { get; private set; }
         
         public int Level
         {
@@ -40,10 +41,11 @@ namespace Entities.Player
         
         public void AddExperience(float amount)
         {
-            Experience += amount;
-            while (Experience >= FIRST_LEVEL_EXPERIENCE * LevelFactor)
+            TotalExperience += amount;
+            LevelExperience += amount;
+            while (LevelExperience >= FIRST_LEVEL_EXPERIENCE * LevelFactor)
             {
-                Experience -= FIRST_LEVEL_EXPERIENCE * LevelFactor;
+                LevelExperience -= FIRST_LEVEL_EXPERIENCE * LevelFactor;
                 Level++;
             }
         }
@@ -51,14 +53,14 @@ namespace Entities.Player
         
         public void ResetStats()
         {
-            Experience = 0;
+            LevelExperience = 0;
             Level = 1;
         }
         
         
         private void Awake()
         {
-            Experience = 0;
+            LevelExperience = 0;
             Level = 1;
         }
     }

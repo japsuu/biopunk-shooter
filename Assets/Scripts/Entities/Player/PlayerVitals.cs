@@ -104,6 +104,7 @@ namespace Entities.Player
         private void Die()
         {
             Debug.LogWarning("Player died!");
+            PlayerController.Instance.OnPlayerDied();
         }
 
 

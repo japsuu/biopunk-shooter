@@ -2,6 +2,7 @@
 using Cameras;
 using Entities.Player;
 using Items;
+using UI;
 using UnityEngine;
 using Weapons;
 using Random = UnityEngine.Random;
@@ -29,11 +30,13 @@ namespace Entities.Enemies
 
         private EnemyMovement _movement;
         private EnemyRotation _rotation;
-        private EnemyData _data;
         private float _health;
+        private GameObject _uiImageHandle;
+
+        public EnemyData Data { get; private set; }
 
         public WeaponObject Weapon => _weapon;
-        public float KillRewardXp => _data.KillRewardXp;
+        public float KillRewardXp => Data.KillRewardXp;
 
 
         private void Awake()
@@ -45,9 +48,9 @@ namespace Entities.Enemies
 
         public void Initialize(EnemyData data)
         {
-            _data = data;
-            _movement.MovementSpeed = _data.MovementSpeed;
-            _health = _data.Health;
+            Data = data;
+            _movement.MovementSpeed = Data.MovementSpeed;
+            _health = Data.Health;
             RuntimeWeaponData weaponData = new RuntimeWeaponData(_defaultWeapon);
             
             if (_defaultEvents != null)
@@ -57,6 +60,8 @@ namespace Entities.Enemies
             
             _rotation.Initialize(this);
             //TODO: Set weapon parts.
+            
+            _uiImageHandle = WaveUIManager.Instance.SpawnEnemyImage(this);
             
             EnemyCreated?.Invoke(this);
         }
@@ -94,6 +99,7 @@ namespace Entities.Enemies
 
         public void DestroySelf()
         {
+            WaveUIManager.Instance.DestroyEnemyImage(_uiImageHandle);
             EnemyDestroyed?.Invoke(this);
             Destroy(gameObject);
         }
@@ -101,7 +107,7 @@ namespace Entities.Enemies
 
         private void SpawnLoot()
         {
-            ItemData item = _data.DropTable.CreateRandomSelector().SelectRandomItem(); 
+            ItemData item = Data.DropTable.CreateRandomSelector().SelectRandomItem(); 
             WorldItemSpawner.SpawnWorldItem(item, (Vector2)transform.position + Random.insideUnitCircle * 2);
         }
         

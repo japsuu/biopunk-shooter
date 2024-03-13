@@ -22,6 +22,7 @@ namespace Entities.Player
 
         private Vector2 _input;
         
+        public bool CanMove { get; set; } = true;
         public Rigidbody2D Rb { get; private set; }
 
 
@@ -35,6 +36,9 @@ namespace Entities.Player
 
         private void Update()
         {
+            if (!CanMove)
+                return;
+            
             _input.x = Input.GetAxisRaw("Horizontal");
             _input.y = Input.GetAxisRaw("Vertical");
         }
