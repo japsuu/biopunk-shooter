@@ -39,6 +39,10 @@ namespace Entities.Enemies
         [Tooltip("How long is the cooldown between waves, in seconds.")]
         private float _waveCooldown = 10.0f;
         
+        [SerializeField]
+        [Tooltip("How many enemies are spawned on the first wave.")]
+        private int _initialWaveEnemyCount = 3;
+        
         private IRandomSelector<EnemyData> _enemyDataSelector;
         private readonly List<Wormhole> _aliveWormholes = new();
         private readonly List<Enemy> _aliveEnemies = new();
@@ -80,25 +84,31 @@ namespace Entities.Enemies
 
         private IEnumerator MainWaveLoop()
         {
+            Coroutine waveCoroutine = null;
             while (PlayerController.Instance.Vitals.IsAlive)
             {
                 int playerLevel = PlayerController.Instance.Stats.Level;
-                int wormholeCount = playerLevel * 5;
-                yield return new WaitForSeconds(_waveCooldown);
+                int wormholeCount = _initialWaveEnemyCount + playerLevel;
                 Debug.Log($"Starting wave for player level {playerLevel} with {wormholeCount} wormholes.");
                 _aliveEnemies.Clear();
-                StartCoroutine(SpawnWormholes(wormholeCount));
+                waveCoroutine = StartCoroutine(SpawnWormholes(wormholeCount));
                 
                 // Wait until all enemies are spawned and dead, or the player is dead.
                 while ((_aliveEnemies.Count > 0 || _aliveWormholes.Count > 0) && PlayerController.Instance.Vitals.IsAlive)
                     yield return null;
+                
+                if (PlayerController.Instance.Vitals.IsAlive)
+                    yield return new WaitForSeconds(_waveCooldown);
             }
             
+            if (waveCoroutine != null)
+                StopCoroutine(waveCoroutine);
+
             foreach (Wormhole wormhole in _aliveWormholes)
-                Destroy(wormhole.gameObject);
-            
+                wormhole.DestroySelf();
+
             foreach (Enemy enemy in _aliveEnemies)
-                Destroy(enemy.gameObject);
+                enemy.DestroySelf();
             
             _aliveWormholes.Clear();
             _aliveEnemies.Clear();

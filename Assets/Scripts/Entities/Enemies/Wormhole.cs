@@ -58,9 +58,9 @@ namespace Entities.Enemies
             enemy.gameObject.SetActive(true);
             enemy.gameObject.name = "Enemy";
         }
-        
-        
-        private void DestroySelf()
+
+
+        public void DestroySelf()
         {
             _destroying = true;
             WormholeDestroyed?.Invoke(this);

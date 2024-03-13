@@ -92,7 +92,7 @@ namespace Entities.Enemies
         }
 
 
-        private void DestroySelf()
+        public void DestroySelf()
         {
             EnemyDestroyed?.Invoke(this);
             Destroy(gameObject);
