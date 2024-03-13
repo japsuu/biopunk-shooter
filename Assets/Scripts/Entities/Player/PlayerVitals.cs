@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Items;
 using UnityEngine;
 using Weapons;
@@ -35,6 +36,9 @@ namespace Entities.Player
         private readonly List<float> _movementSpeedModifiers = new();
         private readonly List<float> _fortitudeFactorModifiers = new();
 
+        public event Action OnHealthDecreased;
+        public event Action OnHealthIncreased;
+
         public float MaxHealth => _baseMaxHealth * GetTotalModifier(_maxHealthModifiers, 0.01f);
         public float Regen => _baseRegenPerSec * GetTotalModifier(_healthRegenModifiers, 0);
         public float MovementSpeed => _baseMovementSpeed * GetTotalModifier(_movementSpeedModifiers, 0.1f);
@@ -64,12 +68,14 @@ namespace Entities.Player
             {
                 Die();
             }
+            OnHealthDecreased?.Invoke();
         }
         
         
         public void Heal(float amount)
         {
             CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
+            OnHealthIncreased?.Invoke();
         }
 
 

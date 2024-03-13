@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Items;
 using Saving;
+using Scenes;
 using Singletons;
 using UnityEngine;
 using Weapons;
@@ -59,7 +60,7 @@ namespace Entities.Player
             
             HighScores.SaveHighScore(Mathf.RoundToInt(Stats.TotalExperience));
             
-            Debug.LogWarning("TODO: Fade to black and load main menu.");
+            SceneChanger.GoToMainMenuScene();
         }
     }
 }
