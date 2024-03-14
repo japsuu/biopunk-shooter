@@ -60,13 +60,13 @@ namespace Entities.Player
             switch (_movementMethod)
             {
                 case MovementMethod.Force:
-                    Rb.AddForce(_input * MovementSpeed);
+                    Rb.AddForce(_input.normalized * MovementSpeed);
                     break;
                 case MovementMethod.Velocity:
-                    Rb.velocity = _input * MovementSpeed;
+                    Rb.velocity = _input.normalized * MovementSpeed;
                     break;
                 case MovementMethod.MovePosition:
-                    Rb.MovePosition(Rb.position + _input * (MovementSpeed * Time.fixedDeltaTime));
+                    Rb.MovePosition(Rb.position + _input.normalized * (MovementSpeed * Time.fixedDeltaTime));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
