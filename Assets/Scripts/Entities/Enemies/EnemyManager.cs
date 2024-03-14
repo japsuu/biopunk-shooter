@@ -6,6 +6,7 @@ using Entities.Player;
 using NaughtyAttributes;
 using Singletons;
 using Thirdparty.WeightedRandomSelector.Interfaces;
+using UI.Settings;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -48,9 +49,9 @@ namespace Entities.Enemies
         [Tooltip("How long a wave can last for, in seconds.")]
         private float _maxWaveLength = 30f;
         
-        [SerializeField]
+        /*[SerializeField]
         [Tooltip("How many enemies are spawned on the first wave.")]
-        private int _initialWaveEnemyCount = 3;
+        private int _initialWaveEnemyCount = 3;*/
         
         private IRandomSelector<EnemyData> _enemyDataSelector;
         private readonly List<Wormhole> _aliveWormholes = new();
@@ -111,13 +112,15 @@ namespace Entities.Enemies
         {
             CurrentWave = 0;
             Coroutine waveCoroutine = null;
+            float levelPower = DifficultySettings.GetLevelPower();
+            int initialCount = DifficultySettings.GetInitialEnemyCount();
             while (IsPlayerAlive)
             {
                 CurrentWave++;
                 TimeUntilNextWave = 0;
                 float waveStartTime = Time.time;
                 int playerLevel = PlayerController.Instance.Stats.Level;
-                int wormholeCount = _initialWaveEnemyCount + Mathf.RoundToInt(Mathf.Pow(playerLevel, 1.5f));
+                int wormholeCount = initialCount + Mathf.RoundToInt(Mathf.Pow(playerLevel, levelPower));
                 Debug.Log($"Starting wave for player level {playerLevel} with {wormholeCount} wormholes.");
                 _aliveEnemies.Clear();
                 waveCoroutine = StartCoroutine(SpawnWormholes(wormholeCount));
