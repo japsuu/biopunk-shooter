@@ -117,7 +117,7 @@ namespace Entities.Enemies
                 TimeUntilNextWave = 0;
                 float waveStartTime = Time.time;
                 int playerLevel = PlayerController.Instance.Stats.Level;
-                int wormholeCount = _initialWaveEnemyCount + Mathf.RoundToInt(playerLevel * 2.4f);
+                int wormholeCount = _initialWaveEnemyCount + Mathf.RoundToInt(Mathf.Pow(playerLevel, 1.5f));
                 Debug.Log($"Starting wave for player level {playerLevel} with {wormholeCount} wormholes.");
                 _aliveEnemies.Clear();
                 waveCoroutine = StartCoroutine(SpawnWormholes(wormholeCount));
