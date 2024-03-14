@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daa35fe50d489396ca9d352ad96cfa, type: 3}
+  m_Name: CinematicTextData
+  m_EditorClassIdentifier: 
+  finalText: 'The year is 3753. Time travel has not been invented yet - but in the
+    future, it will be.
+
+    Half-human half-robot killing machines have been sent
+    from the future, to exterminate the whole of humanity.
+
+    These "bio-machines"
+    travel through worm-holes to stay undetected, and use the most peculiar weapons.
+
+    
+
+    You
+    are one of the last survivors. While you might not have much of a chance to win,
+    you might as well take as many souls with you as possible. If those creatures
+    even have souls.
+
+    
+
+    Loot the corpses of the machines to find bio-modified
+    organs, which you can attach to your body.
+
+    You may also find weapon attachments,
+    that change the behaviour of your firearms.
+
+    
+
+    
+
+    Good luck.'

@@ -23,7 +23,7 @@ namespace Entities
         protected abstract Vector2 RotateTowardsPosition { get; }
         
         
-        private void Update()
+        protected virtual void Update()
         {
             Vector2 direction = (RotateTowardsPosition - (Vector2)transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

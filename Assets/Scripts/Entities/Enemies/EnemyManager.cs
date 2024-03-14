@@ -13,6 +13,9 @@ namespace Entities.Enemies
     public class EnemyManager : SingletonBehaviour<EnemyManager>
     {
         [SerializeField]
+        private bool _spawnEnemies = true;
+        
+        [SerializeField]
         private Wormhole _wormholePrefab;
 
         [SerializeField]
@@ -87,6 +90,8 @@ namespace Entities.Enemies
 
         private void Start()
         {
+            if (!_spawnEnemies)
+                return;
             _enemyDataSelector = _enemyDatabase.CreateRandomSelector();
 
             StartCoroutine(MainWaveLoop());

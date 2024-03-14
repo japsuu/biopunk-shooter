@@ -106,6 +106,16 @@ namespace Entities.Player
         }
 
 
+        private void OnDisable()
+        {
+            if (SlotManager.Instance != null)
+            {
+                SlotManager.Instance.PlayIdleAnimation(false);
+                SlotManager.Instance.PlayIdleAnimation(true);
+            }
+        }
+
+
         public void NotifyOfKill(IDamageable killed)
         {
             float rewardXp = killed.KillRewardXp;

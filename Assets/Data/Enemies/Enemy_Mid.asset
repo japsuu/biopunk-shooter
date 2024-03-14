@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bd1f3886c34194a6fc9f5e471bd6a7, type: 3}
   m_Name: Enemy_Mid
   m_EditorClassIdentifier: 
-  Health: 40
+  Health: 70
   Damage: 15
   KillRewardXp: 40
+  _equippedWeapon: {fileID: 11400000, guid: 7f12b9a456b07f1458d4bb3861266a86, type: 2}
+  _defaultEvents:
+  - {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
+  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
+  - {fileID: 11400000, guid: ed5d1f6199e5e954791c3c5d055118a1, type: 2}
+  _randomizedEvents: []
+  _selectedRandomizedEventCount: 0
+  _selectRandomizedEventChance: 0
   _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}
   _prefab: {fileID: 4117727092640937621, guid: e24ae15483139f741a3bb8e6bada1e66, type: 3}
+  _uiImage: {fileID: 21300000, guid: 3511d15272c104d478812139d65c7a8e, type: 3}

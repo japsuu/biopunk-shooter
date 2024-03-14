@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3bd1f3886c34194a6fc9f5e471bd6a7, type: 3}
+  m_Name: Enemy_Chaser
+  m_EditorClassIdentifier: 
+  Health: 120
+  Damage: 5
+  KillRewardXp: 130
+  _equippedWeapon: {fileID: 11400000, guid: be38554054213fc49b66982832ff73be, type: 2}
+  _defaultEvents:
+  - {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
+  - {fileID: 11400000, guid: d35342cde24b1d94ea5a653568a1a37d, type: 2}
+  - {fileID: 11400000, guid: a2cc399bb74c1c94584a319cea2e2644, type: 2}
+  _randomizedEvents: []
+  _selectedRandomizedEventCount: 0
+  _selectRandomizedEventChance: 0
+  _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}
+  _prefab: {fileID: 4117727092640937621, guid: e364b5df7a84f1647a2e82c3ba46cf3a, type: 3}
+  _uiImage: {fileID: 21300000, guid: da6f93ebd30149f4aabeab5a89304b7a, type: 3}

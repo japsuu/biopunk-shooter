@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using NaughtyAttributes;
 using UnityEngine;
 using World;
 
@@ -34,12 +35,14 @@ namespace Weapons
         public ProjectileBehaviour Behaviour { get; private set; }
         public IDamageCauser Origin { get; private set; }
         public float ImpactDamage { get; private set; }
+        [ShowNativeProperty]
         public float ForwardVelocity { get; private set; }
 
 
         private void Awake()
         {
-            gameObject.AddComponent<DelayedDestroy>().Initialize(30f, null);
+            if (GetComponent<DelayedDestroy>() == null)
+                gameObject.AddComponent<DelayedDestroy>().Initialize(30f, null);
         }
 
 
@@ -107,7 +110,10 @@ namespace Weapons
 
                 // Damage the hit object if it's damageable
                 if (hit.transform.gameObject.TryGetComponent(out IDamageable damageable))
-                    damageable.Damage(ImpactDamage, Origin);
+                {
+                    float damage = ImpactDamage + ForwardVelocity / 2;
+                    damageable.Damage(damage, Origin);
+                }
 
                 // Notify the projectile renderer that a hit has occurred.
                 RaycastProjectileRenderer projectileRenderer = GetComponentInChildren<RaycastProjectileRenderer>();
@@ -132,6 +138,7 @@ namespace Weapons
 
         private IEnumerator StartEvents(int behaviourOffset)
         {
+            yield return new WaitForEndOfFrame();
             yield return StartCoroutine(Behaviour.ApplyEvents(this, behaviourOffset));
             DestroySelf();
         }

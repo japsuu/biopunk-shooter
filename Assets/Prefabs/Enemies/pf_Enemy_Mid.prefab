@@ -361,11 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f055d8e26da427e99b92e58744778fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultWeapon: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
-  _defaultEvents:
-  - {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
-  - {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
-  - {fileID: 11400000, guid: 83144267c830c094f831c856041593bc, type: 2}
   _renderer: {fileID: 8391781709884652608}
   _weapon: {fileID: 4160994085235175329}
 --- !u!114 &7418625170462499778
@@ -380,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd6794c710c458491cc9a2f74b20dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 5
+  _movementSpeed: 5
 --- !u!114 &5364629106666720418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +391,7 @@ MonoBehaviour:
   _rotationTransform: {fileID: 3981318047039945454}
   _rotationMethod: 0
   _rotationSpeed: 360
-  _assumedProjectileSpeed: 18
+  _assumedProjectileSpeed: 30
 --- !u!1 &8109001013360258419
 GameObject:
   m_ObjectHideFlags: 0

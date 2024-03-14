@@ -1,5 +1,6 @@
 ﻿using System;
 using Entities.Player;
+using JSAM;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ namespace Weapons
         public ProjectileBehaviour DynamicBehaviour { get; private set; } = new(Array.Empty<ProjectileEventData>());
         private IDamageCauser _owner;
         private RuntimeWeaponData _runtimeData;
+        private float _overrideDamage = -1;
         
         
         public void Initialize(RuntimeWeaponData data, IDamageCauser owner)
@@ -97,6 +99,12 @@ namespace Weapons
                 _fireDelayLeft -= Time.deltaTime;
             }
         }
+
+
+        public void SetOverrideDamage(float damage)
+        {
+            _overrideDamage = damage;
+        }
         
         
         public void TryFire()
@@ -127,9 +135,14 @@ namespace Weapons
             Projectile p = Instantiate(_runtimeData.Weapon.ProjectilePrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
             p.Initialize(DynamicBehaviour, _owner, 0);
             
+            if (_overrideDamage > 0)
+                p.SetImpactDamage(_overrideDamage);
+            
             // Generate a muzzle flash.
             if(_muzzleFlashPrefab != null)
                 Instantiate(_muzzleFlashPrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
+            
+            AudioManager.PlaySound(_runtimeData.Weapon.FireSound);
         }
     }
 }

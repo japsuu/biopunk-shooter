@@ -361,11 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f055d8e26da427e99b92e58744778fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultWeapon: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
-  _defaultEvents:
-  - {fileID: 11400000, guid: cb65e84bd97b37044b9a5a448a08daff, type: 2}
-  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
-  - {fileID: 11400000, guid: 83144267c830c094f831c856041593bc, type: 2}
   _renderer: {fileID: 8391781709884652608}
   _weapon: {fileID: 4160994085235175329}
 --- !u!114 &7418625170462499778
@@ -380,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd6794c710c458491cc9a2f74b20dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 5
+  _movementSpeed: 7
 --- !u!114 &5364629106666720418
 MonoBehaviour:
   m_ObjectHideFlags: 0

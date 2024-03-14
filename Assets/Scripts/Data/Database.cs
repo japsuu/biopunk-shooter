@@ -17,7 +17,7 @@ namespace Data
         }
 
         [SerializeField]
-        private Entry<T>[] _entries;
+        protected Entry<T>[] _entries;
         
         public IEnumerable<Entry<T>> Entries => _entries;
         public IEnumerable<T> Objects => Array.ConvertAll(_entries, entry => entry.Object);

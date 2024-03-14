@@ -9,18 +9,10 @@ using Random = UnityEngine.Random;
 
 namespace Entities.Enemies
 {
-    [RequireComponent(typeof(EnemyMovement))]
-    [RequireComponent(typeof(EnemyRotation))]
     public class Enemy : MonoBehaviour, IDamageable, IDamageCauser
     {
         public static event Action<Enemy> EnemyCreated;
         public static event Action<Enemy> EnemyDestroyed;
-        
-        [SerializeField]
-        private WeaponData _defaultWeapon;  //TODO: Randomize weapon.
-        
-        [SerializeField]
-        private ProjectileEventData[] _defaultEvents;
         
         [SerializeField]
         private SpriteRenderer _renderer;
@@ -28,8 +20,6 @@ namespace Entities.Enemies
         [SerializeField]
         private WeaponObject _weapon;
 
-        private EnemyMovement _movement;
-        private EnemyRotation _rotation;
         private float _health;
         private GameObject _uiImageHandle;
 
@@ -39,27 +29,18 @@ namespace Entities.Enemies
         public float KillRewardXp => Data.KillRewardXp;
 
 
-        private void Awake()
-        {
-            _rotation = GetComponent<EnemyRotation>();
-            _movement = GetComponent<EnemyMovement>();
-        }
-
-
         public void Initialize(EnemyData data)
         {
             Data = data;
-            _movement.MovementSpeed = Data.MovementSpeed;
             _health = Data.Health;
-            RuntimeWeaponData weaponData = new RuntimeWeaponData(_defaultWeapon);
+            RuntimeWeaponData weaponData = new(Data.EquippedWeapon);
             
-            if (_defaultEvents != null)
-                weaponData.CopyEvents(_defaultEvents);
+            ProjectileEventData[] events = Data.GetEvents();
+            
+            weaponData.CopyEvents(events);
             
             _weapon.Initialize(weaponData, this);
-            
-            _rotation.Initialize(this);
-            //TODO: Set weapon parts.
+            _weapon.SetOverrideDamage(Data.Damage);
             
             _uiImageHandle = WaveUIManager.Instance.SpawnEnemyImage(this);
             

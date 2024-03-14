@@ -20,6 +20,7 @@ MonoBehaviour:
   _uiBackgroundSprite: {fileID: 0}
   _uiSprite: {fileID: 21300000, guid: 9f8fbb15e43d53948b7720795a64e287, type: 3}
   _uiOverlaySprite: {fileID: 0}
+  _fireSound: 2
   _idleClip: {fileID: 7400000, guid: 3b686aad421b1c44582216e8e06a363b, type: 2}
   _firingClip: {fileID: 7400000, guid: 13db8f5058d3b844aa7c4b12a511520b, type: 2}
   _projectilePrefab: {fileID: 1930847822085002051, guid: 0b5d77f0dbbe9e541a9bc607c2191aeb, type: 3}

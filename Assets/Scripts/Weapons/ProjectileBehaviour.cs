@@ -44,10 +44,11 @@ namespace Weapons
                 if (_currentEvent == null)
                     continue;
                 yield return _currentEvent.ApplyToProjectile(projectile);
+                yield return new WaitForEndOfFrame();
             }
 
             // Default 1s delay before destroying the projectile.
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
         
         

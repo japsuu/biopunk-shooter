@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df3b06603b448108cf6474e62ae476f, type: 3}
+  m_Name: SplitEvent_5
+  m_EditorClassIdentifier: 
+  _name: '[Attachment]: Split 5'
+  _tooltipDescription: 'Splits the projectile into five projectiles in a 90 degree
+    cone.
+
+    Attaches to a weapon.'
+  _uiBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  _uiBackgroundSprite: {fileID: 21300000, guid: aef07278245f3ca448bd758e363fbba4, type: 3}
+  _uiSprite: {fileID: 21300000, guid: e94747bfd1df676418197d802200d32f, type: 3}
+  _uiOverlaySprite: {fileID: 21300000, guid: 6f2f77e9b23024344986f77798008645, type: 3}
+  _splitCount: 5
+  _splitAngleOffset: -45
+  _splitAngleIncrement: 18

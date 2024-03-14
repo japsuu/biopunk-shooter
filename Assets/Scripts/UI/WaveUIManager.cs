@@ -52,7 +52,7 @@ namespace UI
         private void Update()
         {
             _waveText.text = $"Wave {EnemyManager.Instance.CurrentWave}";
-            _timeUntilNextWaveText.text = $"Next wave in: {EnemyManager.Instance.TimeUntilNextWave:F1}s";
+            _timeUntilNextWaveText.text = $"Next wave in: {EnemyManager.Instance.TimeUntilNextWave}s";
         }
     }
 }

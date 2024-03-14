@@ -13,6 +13,9 @@ namespace Entities.Player
             Velocity,
             MovePosition
         }
+        
+        [SerializeField]
+        private WiggleRun _wiggleRun;
 
         [HideInInspector]
         public float MovementSpeed;
@@ -37,10 +40,18 @@ namespace Entities.Player
         private void Update()
         {
             if (!CanMove)
+            {
+                _input = Vector2.zero;
                 return;
+            }
             
             _input.x = Input.GetAxisRaw("Horizontal");
             _input.y = Input.GetAxisRaw("Vertical");
+
+            if (_input.magnitude > 0.2f)
+            {
+                _wiggleRun.UpdateWiggle();
+            }
         }
 
 
@@ -76,6 +87,12 @@ namespace Entities.Player
 
             if (currentPos.magnitude > worldRadius)
                 transform.position = currentPos.normalized * worldRadius;
+        }
+
+
+        private void OnDisable()
+        {
+            _input = Vector2.zero;
         }
     }
 }

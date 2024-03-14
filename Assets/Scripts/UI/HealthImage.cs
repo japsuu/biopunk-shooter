@@ -53,7 +53,8 @@ namespace UI
         private void OnDestroy()
         {
             _damageTweener?.Kill();
-            PlayerController.Instance.Vitals.OnHealthDecreased -= FlashRed;
+            if (PlayerController.Instance != null)
+                PlayerController.Instance.Vitals.OnHealthDecreased -= FlashRed;
         }
     }
 }

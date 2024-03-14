@@ -13,25 +13,79 @@ MonoBehaviour:
   m_Name: DropTable_Enemies
   m_EditorClassIdentifier: 
   _entries:
-  - Object: {fileID: 11400000, guid: a62c34cc3fc8e3d4d99dede0f40519b3, type: 2}
-    Weight: 10
-  - Object: {fileID: 11400000, guid: 304dc0d595359424eaca6725646cf530, type: 2}
-    Weight: 10
-  - Object: {fileID: 11400000, guid: 3b5393de009ca2749b9bcc3041b5a35d, type: 2}
-    Weight: 10
-  - Object: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
-    Weight: 10
-  - Object: {fileID: 11400000, guid: 32df120bc4082fa41a49ff824267c8aa, type: 2}
-    Weight: 10
-  - Object: {fileID: 11400000, guid: ec83b1078ccd6b444baaa19ce071217a, type: 2}
-    Weight: 10
+  - Object: {fileID: 11400000, guid: ef20949994f234841b8ba2d27e1a0108, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: d35342cde24b1d94ea5a653568a1a37d, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 5dbabbbc41c2c0c48a79b122ee8d1ef5, type: 2}
+    Weight: 1
   - Object: {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
-    Weight: 10
+    Weight: 1
+  - Object: {fileID: 11400000, guid: cb65e84bd97b37044b9a5a448a08daff, type: 2}
+    Weight: 1
   - Object: {fileID: 11400000, guid: 7548192ba6f22764099279723fb1fca2, type: 2}
-    Weight: 10
+    Weight: 1
+  - Object: {fileID: 11400000, guid: f619d748ba1b5644e932fe775c489fac, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 2c4fdfb142e9cd847b8f5c524f2e6d47, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 250a7a0b7b5eb234f8323e94c210ced1, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 95a0751835013ee459eb1d5d88ff1403, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 126bb5bc38b72dc4595094112c0473f5, type: 2}
+    Weight: 1
   - Object: {fileID: 11400000, guid: c0bc805fa3d5ab2438d608dca3068e1a, type: 2}
-    Weight: 10
+    Weight: 1
   - Object: {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
-    Weight: 10
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 6c1e4aa5237a6c441932e11affc872ff, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 01e3758f6f447d449a56525883ae60c5, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 1ca917cdc4fb2f642afbaa7e8acd62a3, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: eb19b34fffca573408e7e063d8c9a021, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 9cba588fb9b999c43a86a15fefbc2e8e, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: d99785838b47b3c4f921dd247b88e2c0, type: 2}
+    Weight: 1
   - Object: {fileID: 11400000, guid: ed5d1f6199e5e954791c3c5d055118a1, type: 2}
-    Weight: 10
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 83144267c830c094f831c856041593bc, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: a2cc399bb74c1c94584a319cea2e2644, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: cd32d777deea4ba44990dcc88b18dcc5, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 405158b7bccb7f54bb8cbffca754ee95, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 58bc3010649264f41af5e20ec33941a5, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 422f2cdf820c1364b9b29fe7a3799af8, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 4b161514120c00149b02b6abceb89872, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 8fd9771a55db5d748a452317f14224ff, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 177ba079e33823446b17294e1a67cefe, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: 303150226d5fa1742b5214c8192c4200, type: 2}
+    Weight: 1
+  - Object: {fileID: 11400000, guid: ec83b1078ccd6b444baaa19ce071217a, type: 2}
+    Weight: 2
+  - Object: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
+    Weight: 2
+  - Object: {fileID: 11400000, guid: 32df120bc4082fa41a49ff824267c8aa, type: 2}
+    Weight: 2
+  - Object: {fileID: 11400000, guid: 7f7f0a2be7ce44645afcd218b77a627f, type: 2}
+    Weight: 2
+  - Object: {fileID: 11400000, guid: a62c34cc3fc8e3d4d99dede0f40519b3, type: 2}
+    Weight: 3
+  - Object: {fileID: 11400000, guid: 304dc0d595359424eaca6725646cf530, type: 2}
+    Weight: 3
+  - Object: {fileID: 11400000, guid: 3b5393de009ca2749b9bcc3041b5a35d, type: 2}
+    Weight: 3

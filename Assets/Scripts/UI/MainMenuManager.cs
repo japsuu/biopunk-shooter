@@ -56,6 +56,11 @@ namespace UI
         
         [SerializeField]
         private Button _exitButton;
+        
+        [Header("Cinematic")]
+        
+        [SerializeField]
+        private Button _replayIntroCinematicButton;
 
 
         private void Start()
@@ -70,12 +75,20 @@ namespace UI
             _closeCreditsButton.onClick.AddListener(() => _creditsPanel.gameObject.SetActive(false));
             _openSettingsButton.onClick.AddListener(() => _settingsPanel.gameObject.SetActive(true));
             _closeSettingsButton.onClick.AddListener(() => _settingsPanel.gameObject.SetActive(false));
+            _replayIntroCinematicButton.onClick.AddListener(ReplayIntroCinematic);
             
             _settingsPanel.gameObject.SetActive(false);
             _helpPanel.gameObject.SetActive(false);
             _creditsPanel.gameObject.SetActive(false);
 
             _highScoreText.text = "Your Highscore: " + HighScores.GetHighScore();
+        }
+
+
+        private void ReplayIntroCinematic()
+        {
+            Cinematics.SetPlayerHasSeenCinematic(false);
+            SceneChanger.GoToCinematicScene();
         }
 
 

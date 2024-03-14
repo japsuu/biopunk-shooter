@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bd1f3886c34194a6fc9f5e471bd6a7, type: 3}
   m_Name: Enemy_Heavy
   m_EditorClassIdentifier: 
-  MovementSpeed: 2.65
-  Health: 120
+  Health: 150
   Damage: 10
   KillRewardXp: 80
+  _equippedWeapon: {fileID: 11400000, guid: 7f12b9a456b07f1458d4bb3861266a86, type: 2}
+  _defaultEvents:
+  - {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
+  - {fileID: 11400000, guid: 1ca917cdc4fb2f642afbaa7e8acd62a3, type: 2}
+  - {fileID: 11400000, guid: ed5d1f6199e5e954791c3c5d055118a1, type: 2}
+  _randomizedEvents:
+  - {fileID: 11400000, guid: 405158b7bccb7f54bb8cbffca754ee95, type: 2}
+  _selectedRandomizedEventCount: 1
+  _selectRandomizedEventChance: 0.5
   _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}
   _prefab: {fileID: 4117727092640937621, guid: 3d2c3280435f4a94db23564fb2572264, type: 3}
+  _uiImage: {fileID: 21300000, guid: d554f940979bd53418afdf3f53e0ff6f, type: 3}

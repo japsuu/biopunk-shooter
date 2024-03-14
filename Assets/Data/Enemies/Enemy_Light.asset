@@ -12,9 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bd1f3886c34194a6fc9f5e471bd6a7, type: 3}
   m_Name: Enemy_Light
   m_EditorClassIdentifier: 
-  MovementSpeed: 6.83
-  Health: 20
+  Health: 50
   Damage: 5
   KillRewardXp: 20
+  _equippedWeapon: {fileID: 11400000, guid: be38554054213fc49b66982832ff73be, type: 2}
+  _defaultEvents:
+  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
+  - {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
+  _randomizedEvents:
+  - {fileID: 11400000, guid: ef20949994f234841b8ba2d27e1a0108, type: 2}
+  - {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
+  - {fileID: 11400000, guid: cb65e84bd97b37044b9a5a448a08daff, type: 2}
+  _selectedRandomizedEventCount: 1
+  _selectRandomizedEventChance: 0.5
   _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}
   _prefab: {fileID: 4117727092640937621, guid: 4a84b6048a272974b91c4581a3bcfc08, type: 3}
+  _uiImage: {fileID: 21300000, guid: 84457deb1eb65ae40ae711829ef9da10, type: 3}

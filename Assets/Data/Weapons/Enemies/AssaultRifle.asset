@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67ba471befa4ee39ac4fa5d0522384b, type: 3}
+  m_Name: AssaultRifle
+  m_EditorClassIdentifier: 
+  _name: Assault Rifle
+  _tooltipDescription: 'High fire rate.
+
+    8 attachment slots.'
+  _uiBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  _uiBackgroundSprite: {fileID: 0}
+  _uiSprite: {fileID: 21300000, guid: 9f8fbb15e43d53948b7720795a64e287, type: 3}
+  _uiOverlaySprite: {fileID: 0}
+  _fireSound: 2
+  _idleClip: {fileID: 7400000, guid: 3b686aad421b1c44582216e8e06a363b, type: 2}
+  _firingClip: {fileID: 7400000, guid: 13db8f5058d3b844aa7c4b12a511520b, type: 2}
+  _projectilePrefab: {fileID: 1930847822085002051, guid: b4ee7ce960ce51a439868e6725e5b2c3, type: 3}
+  _fireRateRpm: 400
+  _maxProjectileEvents: 6

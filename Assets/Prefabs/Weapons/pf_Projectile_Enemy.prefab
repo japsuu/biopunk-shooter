@@ -228,7 +228,7 @@ MonoBehaviour:
   _projectileHitLayers:
     serializedVersion: 2
     m_Bits: 1281
-  _defaultImpactDamage: 20
+  _defaultImpactDamage: 15
 --- !u!1 &4169808736225229866
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,11 @@ namespace Weapons
     [CreateAssetMenu(menuName = "Weapons/Create WeaponData", fileName = "WeaponData_", order = 0)]
     public class WeaponData : ItemData
     {
+        [Header("Audio Config")]
+
+        [SerializeField]
+        private AudioLibrarySounds _fireSound;
+        
         [Header("Animation Config")]
         
         [SerializeField]
@@ -43,6 +48,7 @@ namespace Weapons
         [Tooltip("The time it takes for the barrel to cool down, after it has overheated.")]
         private float _overheatCooldownSeconds = 2f;*/
         
+        public AudioLibrarySounds FireSound => _fireSound;
         public string IdleAnimationName => _idleClip.name;
         public string FiringAnimationName => _firingClip.name;
         public override ItemType Type => ItemType.Weapon;
