@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1ca917cdc4fb2f642afbaa7e8acd62a3, type: 2}
   - {fileID: 11400000, guid: ed5d1f6199e5e954791c3c5d055118a1, type: 2}
   _randomizedEvents:
-  - {fileID: 11400000, guid: 405158b7bccb7f54bb8cbffca754ee95, type: 2}
+  - {fileID: 11400000, guid: 3c312fecc85595d4489dcf0ab492154c, type: 2}
   _selectedRandomizedEventCount: 1
   _selectRandomizedEventChance: 0.5
   _dropTable: {fileID: 11400000, guid: 0d8f80f33bd06af438a4e35e629625af, type: 2}

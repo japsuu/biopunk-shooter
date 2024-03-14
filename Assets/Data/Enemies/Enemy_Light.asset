@@ -17,7 +17,7 @@ MonoBehaviour:
   KillRewardXp: 20
   _equippedWeapon: {fileID: 11400000, guid: be38554054213fc49b66982832ff73be, type: 2}
   _defaultEvents:
-  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
+  - {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
   - {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
   _randomizedEvents:
   - {fileID: 11400000, guid: ef20949994f234841b8ba2d27e1a0108, type: 2}

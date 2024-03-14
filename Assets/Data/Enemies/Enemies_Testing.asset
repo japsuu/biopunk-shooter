@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entries:
   - Object: {fileID: 11400000, guid: 541e7bb71f2af39448d794d0cc23a7e1, type: 2}
-    Weight: 25
+    Weight: 15
   - Object: {fileID: 11400000, guid: a45e3272410c3cf41beafdc68ec26be6, type: 2}
-    Weight: 30
+    Weight: 20
   - Object: {fileID: 11400000, guid: 2b00b3b3576830b4da4d7159305401ca, type: 2}
     Weight: 70
   - Object: {fileID: 11400000, guid: 3b3d613216d8c9147a6d8cb838b4ab17, type: 2}
-    Weight: 40
+    Weight: 30
   - Object: {fileID: 11400000, guid: 45fbdc274c5fd6a418e1b21d17e4c500, type: 2}
-    Weight: 20
+    Weight: 15

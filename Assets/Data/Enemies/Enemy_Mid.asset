@@ -18,7 +18,7 @@ MonoBehaviour:
   _equippedWeapon: {fileID: 11400000, guid: 7f12b9a456b07f1458d4bb3861266a86, type: 2}
   _defaultEvents:
   - {fileID: 11400000, guid: da37cc649fb6f5a439e3bc944dfac62e, type: 2}
-  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
+  - {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
   - {fileID: 11400000, guid: ed5d1f6199e5e954791c3c5d055118a1, type: 2}
   _randomizedEvents: []
   _selectedRandomizedEventCount: 0

@@ -1513,10 +1513,10 @@ MonoBehaviour:
   _defaultLeftData: {fileID: 11400000, guid: 32df120bc4082fa41a49ff824267c8aa, type: 2}
   _defaultRightData: {fileID: 11400000, guid: b52775983dfcff94c84eff3caedae4d2, type: 2}
   _defaultEventsLeft:
-  - {fileID: 11400000, guid: ead84993cbe15e347894bbc3ca53de35, type: 2}
+  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
   - {fileID: 11400000, guid: 1ca917cdc4fb2f642afbaa7e8acd62a3, type: 2}
   _defaultEventsRight:
-  - {fileID: 11400000, guid: 697d4b647670e4944990fd5f9fe403d8, type: 2}
+  - {fileID: 11400000, guid: 6c1e4aa5237a6c441932e11affc872ff, type: 2}
   _leftWeapon: {fileID: 853400534}
   _rightWeapon: {fileID: 129868147}
   _allowFiring: 1
@@ -6212,7 +6212,7 @@ MonoBehaviour:
   _wormholeGroupMaxSize: 10
   _waveCooldown: 20
   _maxWaveLength: 60
-  _initialWaveEnemyCount: 3
+  _initialWaveEnemyCount: 0
 --- !u!4 &1277115856
 Transform:
   m_ObjectHideFlags: 0
