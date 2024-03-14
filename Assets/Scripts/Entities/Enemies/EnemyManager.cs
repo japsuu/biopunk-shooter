@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Data;
 using Entities.Player;
@@ -67,6 +68,14 @@ namespace Entities.Enemies
             Wormhole.WormholeDestroyed += OnWormholeDestroyed;
             Enemy.EnemyCreated += OnEnemyCreated;
             Enemy.EnemyDestroyed += OnEnemyDestroyed;
+        }
+
+
+        private void OnDisable()
+        {
+            Wormhole.WormholeDestroyed -= OnWormholeDestroyed;
+            Enemy.EnemyCreated -= OnEnemyCreated;
+            Enemy.EnemyDestroyed -= OnEnemyDestroyed;
         }
 
 

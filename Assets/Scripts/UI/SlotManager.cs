@@ -106,6 +106,12 @@ namespace UI
         }
 
 
+        private void OnDisable()
+        {
+            PlayerWeaponManager.OnWeaponChanged -= OnWeaponChanged;
+        }
+
+
         private void OnWeaponChanged((RuntimeWeaponData newWeapon, bool isRightWeapon) obj)
         {
             (RuntimeWeaponData newWeapon, bool isRightWeapon) = obj;
